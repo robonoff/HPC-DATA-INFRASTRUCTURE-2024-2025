@@ -132,4 +132,62 @@ This is to ensure only the strictlynecessary commands are run, so that we can fi
 
 ### SIMPLE PROXY (optional)
 
-Placeholder for the 
+Placeholder for the *simple proxy* part. Required if running remotely via `SSH`.
+
+### Enlarge the VM's Storage
+
+Now, to make all the required pods and services fit in the `Kubernetes` VM, we need to enlarge it.  
+
+First of all, let's get the ID of the *kube01*  VM:
+
+```
+vagrant global-status
+```
+
+stop it
+
+```
+vagrant halt <kube01-id>
+```
+
+then modify the image by adding 5 GB
+
+```
+sudo qemu-img resize /var/lib/libvirt/images/k3s_nodes_kube01.img +5G
+```
+
+Now let's turn the machine back up again:
+
+```
+vagrant halt <kube01-id>
+```
+
+then log into it as `root`:
+
+```
+ssh root@192.168.132.10
+```
+
+and run the following command:
+
+```
+cfdisk /dev/vda
+```
+
+use the &uarr; &darr; pf your keyboard to navigate to `/dev/vda4`, then use the &larr; &rarr; to select `Resize`, press `Enter` to confirm the new fisk size; then selectr `Write`, confirm writing `yes` and `Enter`, then `Enter` again to `Quit`.  
+
+Now expand the `root` partition by running
+
+```
+sudo btrfs filesystem resize max /
+```
+
+and then
+
+```
+df -h
+```
+
+to check if it took.
+
+##
