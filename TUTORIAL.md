@@ -224,6 +224,29 @@ Then update the list:
 sudo update-ca-trust
 ```
 
-### Deploy the Cert-Mamanger and Install Authentik
+### Deploy the Cert-Mamanger
+
+Enter into the *playbook* directory:
+
+```
+cd $ROOTPROJECTDIR/playbooks
+```
+
+then let's run the first two *playbooks*.  
+The first one enables the *ACME* challenge
+
+```
+ansible-playbook 01_ipa_acme_enable.yml
+```
+
+then the second one handles the certifications through `kubernetes` and the `ipa` server.  
+
+In order to work, `cert-manager` requires a valid issuer. Since all the setup is a testing environment, with a private DNS and CA (IPA), The ipa node is used as `ClusterIssuer`:
+
+```
+kubectl apply -f $ROOTPROJECTDIR/00-cert-manager/environment/dev/clusterIssuer/k3s.virtualorfeo.it.yaml
+```
+
+### Install Authentik
 
 
