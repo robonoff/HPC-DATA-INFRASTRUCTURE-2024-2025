@@ -322,3 +322,28 @@ Before configuring the *LDAP* source in *authentik*, it is needed perform the fi
 Then enter an email (e.g. `admin@virtualorfeo.it`) and a password (eg `12345678`) and click on the `Create` button.  
  
 This will setup the credentials for the *Authentik*’s default administrator `akadmin`.
+
+### Configure an *LDAP* source in *authentik*
+
+* Click on `Admin interface` &rarr; `Directory` &rarr; `Federation and Social Login` &rarr; `Create`.  
+* Select *LDAP* source and click on `Next`.
+* Set up with the following  values:  
+    1. On the *main* section:
+
+        * **Name**: `freeipa`
+        * **Slug**: `freeipa`
+        * Leave **enabled** the `Enabled`, `Sync Users`, `Sync Groups` and `Use Password writeback` options
+
+    ![First page of the LDAP setup](images/authentik-ldap-first-tab.png)
+
+    2. In the *Connection Settings* section:
+
+        * **Server URI**: `ldaps://ipa01.virtualorfeo.it`
+        * **Disable** the toggle for `Enable StartTLS`
+        * **Bind DN**:` uid=svc_authentik,cn=users,cn=accounts,dc=virtualorfeo,dc=it`
+        * **Bind Password**: `12345678` (or the password you set to the svc_authentik user in the previous step)
+        * **Base DN**: `dc=virtualorfeo,dc=it`
+    
+    ![Second page of the LDAP setup](images/authentik-ldap-second-tab.png)
+
+    3.  
