@@ -188,6 +188,40 @@ and then
 df -h
 ```
 
-to check if it took.
+to check if the edit took.
 
-##
+### Add the Hostnames for some of the VMs
+
+> **NOTE** : check later if other addresses need to be addressed
+
+Edit the *hosts* file to add hostnames:
+
+```
+echo "192.168.132.70 ipa01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.100 auth.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.100 minio.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+```
+
+### Export the Certificates from IPA
+
+Moreover, even if is not strictly necessary, to avoid the browser warning due to the `unknown CA`, it is recommended to add the *ipa CA* to the `system trusted CA`.  
+
+Export the certificates from the *ipa* VM:
+
+```
+scp root@ipa01.virtualorfeo.it:/etc/ipa/ca.crt /tmp/freeipa-virtorfeo.crt
+```
+
+then move it to the list of `ca-trusted` sources:
+
+```
+sudo mv /tmp/freeipa-virtorfeo.crt /etc/pki/ca-trust/source/anchors/freeipa-virtorfeo.crt
+```
+
+Then update the list:
+
+```
+sudo update-ca-trust
+```
+
+### Deploy the Cert-mamanger and 
