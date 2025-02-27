@@ -12,7 +12,7 @@ Experimentally, we have determined that the minimum hardware required to follow 
 * At least **32 GB of RAM** (we tried on a system with 24 GB, it could run everything but *NOMAD Oasis*)
 * While not strictly required, an **SSD** (any kind: SATA, PCIe Gen 2, 3, 4, whatever) is ***VERY*** recommended.
 
-This tutorial is an updated and integrated version of [Isac Pasianotto's tutorial](https://gitlab.com/IsacPasianotto/testing-env-doc).
+This tutorial is an expanded version of [Isac Pasianotto's tutorial](https://gitlab.com/IsacPasianotto/testing-env-doc).
 
 ## CLONE THE REQUIRED REPOS
 
@@ -315,6 +315,6 @@ At this point go to the `Roles` settings tab and assign to the user the `User Ad
 
 ![Add administrator role to svc user](images/svc_user-edit.png)
 
-### Authentik first setup
+### Authentik First Setup
 
 
