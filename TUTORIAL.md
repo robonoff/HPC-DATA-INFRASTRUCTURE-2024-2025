@@ -159,7 +159,7 @@ sudo qemu-img resize /var/lib/libvirt/images/k3s_nodes_kube01.img +5G
 Now let's turn the machine back up again:
 
 ```
-vagrant halt <kube01-id>
+vagrant up <kube01-id>
 ```
 
 then log into it as `root`:
@@ -224,4 +224,6 @@ Then update the list:
 sudo update-ca-trust
 ```
 
-### Deploy the Cert-mamanger and 
+### Deploy the Cert-Mamanger and Install Authentik
+
+
