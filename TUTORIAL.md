@@ -215,7 +215,7 @@ Moreover, even if is not strictly necessary, to avoid the browser warning due to
 Export the certificates from the *IPA* VM:
 
 ```
-scp root@ipa01.virtualorfeo.it:/etc/IPA/ca.crt /tmp/freeipa-virtorfeo.crt
+scp root@ipa01.virtualorfeo.it:/etc/ipa/ca.crt /tmp/freeipa-virtorfeo.crt
 ```
 
 then move it to the list of `ca-trusted` sources:
@@ -243,7 +243,7 @@ sudo dnf -y install k9s
 
 then run it in a separate terminal by running the command `k9s`; press `Enter` to connect, then press `0` on the keyboard to show all of the *namespaces*. 
 
-### Deploy the Cert-Mamanger
+### Deploy the Cert-Mananger
 
 Enter into the *playbook* directory:
 
@@ -345,4 +345,19 @@ This will setup the credentials for the *Authentik*’s default administrator `a
     
     ![Second page of the LDAP setup](images/authentik-ldap-second-tab.png)
 
-    3.  
+    3. In *LDAP Attribute Mapping* section:
+
+        * In **User Property Mappings** Select (multiple selection using `ctlr`):
+
+            * Authentik default LDAP Mapping: DN to User Path
+            *Authentik default LDAP Mapping: mail
+            * Authentik default LDAP Mapping: Name
+            * authentik default OpenLDAP Mapping: cn
+            * authentik default OpenLDAP Mapping: uid
+        
+        * In the **Group Property Mappings** Select: `authentik default OpenLDAP Mapping: cn`
+
+    ![Third page of the LDAp setup](images/authentik-ldap-third-tab.png)
+
+    4. 
+             
