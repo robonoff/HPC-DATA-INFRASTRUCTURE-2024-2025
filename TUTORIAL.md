@@ -10,7 +10,7 @@ Experimentally, we have determined that the minimum hardware required to follow 
 
 * At least **4 physical cores** (we tried running on a 2 core hyperthreaded system and it didn't work)
 * At least **32 GB of RAM** (we tried on a system with 24 GB, it could run everything but *NOMAD Oasis*)
-* While not strictly required, an **SSD** is ***VERY*** recommended.
+* While not strictly required, an **SSD** (any kind: SATA, PCIe Gen 2, 3, 4, whatever) is ***VERY*** recommended.
 
 This tutorial is an updated and integrated version of [Isac Pasianotto's tutorial](https://gitlab.com/IsacPasianotto/testing-env-doc).
 
@@ -299,4 +299,22 @@ Technically, *authentik* is able to define users and group directly in its datab
 
 > **NOTE**: add instructions on how to open Chromium using the proxy when accessing the machine remotely. 
 
-Start *Chromium* (or whatever browser you want) and 
+Start *Chromium* (or whatever browser you want) and navigate to `ipa01.virtualorfeo.it`. Login with the admin credentials:
+
+* username: `admin`
+* password: `12345678`
+
+Click on `Identity` &rarr; `Users` &rarr; `+Add`and register an `svc_authentik` user which will be used by *authentik* to bind to the *LDAP* server.
+
+![svc user add](images/svc_user-add.png)
+
+ > <span style="color:red;"> !!! WARNING !!! </span> during the user creation, `freeIPA` does not require to set a password, however *authentik* will need it to bind to the *LDAP* server. Remeber to set a password (in a test environment like this also a simple one as `12345678` is fine). Remember to fill it out even for future users.
+
+ Once you filled the form up, click on `Add and Edit` button.  
+At this point go to the `Roles` settings tab and assign to the user the `User Administrators` roles clicking on the `Add` button:
+
+![Add administrator role to svc user](images/svc_user-edit.png)
+
+### Authentik first setup
+
+
