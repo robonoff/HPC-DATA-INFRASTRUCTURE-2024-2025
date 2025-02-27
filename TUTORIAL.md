@@ -317,4 +317,8 @@ At this point go to the `Roles` settings tab and assign to the user the `User Ad
 
 ### Authentik First Setup
 
+Before configuring the *LDAP* source in *authentik*, it is needed perform the fist access and create an admin user. To do that open a web browser and go to `auth.k3s.virtualorfeo.it/if/flow/initial-setup/` (be mindful, the final `/` is vital. It could be automatically removed by your borwser; in that case, you will land on the wrong page. Just add it back and you should be good to go).  
 
+Then enter an email (e.g. `admin@virtualorfeo.it`) and a password (eg `12345678`) and click on the `Create` button.  
+ 
+This will setup the credentials for the *Authentik*’s default administrator `akadmin`.
