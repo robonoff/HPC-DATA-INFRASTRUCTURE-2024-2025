@@ -43,6 +43,7 @@ we will need a specific branch for `orfeokuboverlay`, so run:
 ### Install the Requirements
 
 Move into `virtualorfeo` and run:
+
 ```
 git submodule init && git submodule update --remote
 sudo dnf install -y $(sed -r '/^#/d' requirements.txt)
@@ -68,6 +69,12 @@ sudo mv kustomize /usr/local/bin/
 ```
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
+```
+
+* *(OPTIONAL)* Install *Chromium*, which works better for certificates and proxies:
+
+```
+sudo dnf install chromium
 ```
 
 ### Install the Required Plugins
@@ -204,12 +211,12 @@ echo "192.168.132.100 minio.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev
 
 ### Export the Certificates from IPA
 
-Moreover, even if is not strictly necessary, to avoid the browser warning due to the `unknown CA`, it is recommended to add the *ipa CA* to the `system trusted CA`.  
+Moreover, even if is not strictly necessary, to avoid the browser warning due to the `unknown CA`, it is recommended to add the *IPA CA* to the `system trusted CA`.  
 
-Export the certificates from the *ipa* VM:
+Export the certificates from the *IPA* VM:
 
 ```
-scp root@ipa01.virtualorfeo.it:/etc/ipa/ca.crt /tmp/freeipa-virtorfeo.crt
+scp root@ipa01.virtualorfeo.it:/etc/IPA/ca.crt /tmp/freeipa-virtorfeo.crt
 ```
 
 then move it to the list of `ca-trusted` sources:
@@ -223,6 +230,19 @@ Then update the list:
 ```
 sudo update-ca-trust
 ```
+
+### **[OPTIONAL]** Install k9s
+
+`k9s` is a very useful GUI interface to monitor and manage the pods running in *kubernetes*. 
+
+Add the required repo and install it like so:
+
+```
+sudo dnf -y copr enable luminoso/k9s
+sudo dnf -y install k9s
+```
+
+then run it in a separate terminal by running the command `k9s`; press `Enter` to connect, then press `0` on the keyboard to show all of the *namespaces*. 
 
 ### Deploy the Cert-Mamanger
 
@@ -239,9 +259,9 @@ The first one enables the *ACME* challenge
 ansible-playbook 01_ipa_acme_enable.yml
 ```
 
-then the second one handles the certifications through `kubernetes` and the `ipa` server.  
+then the second one handles the certifications through `kubernetes` and the `IPA` server.  
 
-In order to work, `cert-manager` requires a valid issuer. Since all the setup is a testing environment, with a private DNS and CA (IPA), The ipa node is used as `ClusterIssuer`:
+In order to work, `cert-manager` requires a valid issuer. Since all the setup is a testing environment, with a private DNS and CA (IPA), The IPA node is used as `ClusterIssuer`:
 
 ```
 kubectl apply -f $ROOTPROJECTDIR/00-cert-manager/environment/dev/clusterIssuer/k3s.virtualorfeo.it.yaml
@@ -271,4 +291,12 @@ helm install auth authentik/authentik \
   -f environments/dev/values.yaml
   ```
 
-  ##
+## SET UP *IPA* AS USER-SOURCE FOR *Authentik*
+
+Technically, *authentik* is able to define users and group directly in its database, but in this way those users will exists only in the *authentik* database. To avoid this, it is possible to use an external user-source, in this case, the *IPA* server relying of *LDAP*.
+
+### Create Bind Account
+
+> **NOTE**: add instructions on how to open Chromium using the proxy when accessing the machine remotely. 
+
+Start *Chromium* (or whatever browser you want) and 
