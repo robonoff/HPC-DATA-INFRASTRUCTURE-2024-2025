@@ -1,6 +1,5 @@
 # Virtual ORFEO with OFED and Ceph
-
-> *Everybody has a testing environment. Some people are lucky enough enough to have a totally separate environment to run production in.*
+> *Everybody has a testing environment. Some people are lucky enough to have a totally separate environment to run production in.*
 
 ## STEP 0: Initial requirements
 
