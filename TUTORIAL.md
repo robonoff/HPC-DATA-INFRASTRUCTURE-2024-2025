@@ -249,4 +249,26 @@ kubectl apply -f $ROOTPROJECTDIR/00-cert-manager/environment/dev/clusterIssuer/k
 
 ### Install Authentik
 
+The installation of *authentik* is done using *helm*:
 
+```
+cd $ROOTPROJECTDIR/20-authentik
+```
+then add the repo
+```
+helm repo add authentik https://charts.goauthentik.io
+helm repo update
+```
+
+and finally install it with the appropriate settings:
+
+```
+helm install auth authentik/authentik \
+  --version 2024.4.2 \
+  --namespace authentik \
+  --create-namespace \
+  -f values.yaml \
+  -f environments/dev/values.yaml
+  ```
+
+  ##
