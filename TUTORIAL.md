@@ -168,7 +168,7 @@ Now let's turn the machine back up again:
 vagrant up <kube01-id>
 ```
 
-then log into it as `root`:
+then log into it as `root` in kube01:
 
 ```
 ssh root@192.168.132.10
