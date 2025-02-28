@@ -180,7 +180,7 @@ and run the following command:
 cfdisk /dev/vda
 ```
 
-use the &uarr; &darr; pf your keyboard to navigate to `/dev/vda4`, then use the &larr; &rarr; to select `Resize`, press `Enter` to confirm the new fisk size; then selectr `Write`, confirm writing `yes` and `Enter`, then `Enter` again to `Quit`.  
+use the &uarr; &darr; of your keyboard to navigate to `/dev/vda4`, then use the &larr; &rarr; to select `Resize`, press `Enter` to confirm the new fisk size; then selectr `Write`, confirm writing `yes` and `Enter`, then `Enter` again to `Quit`.  
 
 Now expand the `root` partition by running
 
@@ -308,6 +308,8 @@ Click on `Identity` &rarr; `Users` &rarr; `+Add`and register an `svc_authentik` 
 ![svc user add](images/svc_user-add.png)
 
  > <span style="color:red;"> !!! WARNING !!! </span> during the user creation, `freeIPA` does not require to set a password, however *authentik* will need it to bind to the *LDAP* server. Remeber to set a password (in a test environment like this also a simple one as `12345678` is fine). Remember to fill it out even for future users.
+ 
+ > <span style="color:red">  !!! WARNING !!! </span> now it's unimportant, but you can set the `$HOME` and `shell` of the user from here.
 
  Once you filled the form up, click on `Add and Edit` button.  
 At this point go to the `Roles` settings tab and assign to the user the `User Administrators` roles clicking on the `Add` button:
