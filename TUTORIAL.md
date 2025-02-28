@@ -134,7 +134,7 @@ After that is done, run the first *playbook* in a limited capacity by selecting 
 ansible-playbook 00_main.yml --tags kub
 ```
 
-This is to ensure only the strictlynecessary commands are run, so that we can first enlarge the VM where *kubernetes* is running to fit everything.  
+This is to ensure only the strictly necessary commands are run, so that we can first enlarge the VM where *kubernetes* is running to fit everything.  
 
 ### SIMPLE PROXY (optional)
 
