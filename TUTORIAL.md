@@ -134,7 +134,7 @@ After that is done, run the first *playbook* in a limited capacity by selecting 
 ansible-playbook 00_main.yml --tags kub
 ```
 
-This is to ensure only the strictlynecessary commands are run, so that we can first enlarge the VM where *kubernetes* is running to fit everything.  
+This is to ensure only the strictly necessary commands are run, so that we can first enlarge the VM where *kubernetes* is running to fit everything.  
 
 ### SIMPLE PROXY (optional)
 
@@ -168,7 +168,7 @@ Now let's turn the machine back up again:
 vagrant up <kube01-id>
 ```
 
-then log into it as `root`:
+then log into it as `root` in kube01:
 
 ```
 ssh root@192.168.132.10
@@ -194,7 +194,7 @@ and then
 df -h
 ```
 
-to check if the edit took.
+to check if the edit took place.
 
 ### Add the Hostnames for some of the VMs
 
