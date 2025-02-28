@@ -341,7 +341,7 @@ This will setup the credentials for the *Authentik*’s default administrator `a
 
         * **Server URI**: `ldaps://ipa01.virtualorfeo.it`
         * **Disable** the toggle for `Enable StartTLS`
-        * **Bind DN**:` uid=svc_authentik,cn=users,cn=accounts,dc=virtualorfeo,dc=it`
+        * **Bind CN**:` uid=svc_authentik,cn=users,cn=accounts,dc=virtualorfeo,dc=it`
         * **Bind Password**: `12345678` (or the password you set to the svc_authentik user in the previous step)
         * **Base DN**: `dc=virtualorfeo,dc=it`
     
@@ -359,7 +359,17 @@ This will setup the credentials for the *Authentik*’s default administrator `a
         
         * In the **Group Property Mappings** Select: `authentik default OpenLDAP Mapping: cn`
 
-    ![Third page of the LDAp setup](images/authentik-ldap-third-tab.png)
+    ![Third page of the LDAP setup](images/authentik-ldap-third-tab.png)
 
-    4. 
-             
+    4. In the `Additional Setting`:
+
+        * **Addition User DN**: `cn=users,cn=accounts`
+        * **Addition Group DN**: `cn=users,cn=accounts`
+        * **User Object Filter**: `(objectClass=person)`
+        * **Group Object Filter**: `(objectClass=groupofnames)`
+        * **Group membership field**: `member`
+        * **Object uniqueness field**: `ipaUniqueID`
+
+    ![Last page of the LDAP setup](images/authentik-ldap-last-tab.png)
+
+    5. Click on the `Save` button, then click on the `freeipa` name, then on the `Run syng` button. It won't automatically update, so you have to either refresh the paege or navigate in and out of the page to see if it updated. It will display errors, do not worry.
