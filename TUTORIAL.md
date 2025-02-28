@@ -194,7 +194,7 @@ and then
 df -h
 ```
 
-to check if the edit took.
+to check if the edit took place.
 
 ### Add the Hostnames for some of the VMs
 
