@@ -3,7 +3,7 @@
 
 ## STEP 0: Initial requirements
 
-Use a **Fedora 40** system, as later versoions require additional steps and different distros require different package names and/or additional steps. You can try and adapt the steps to other systems, but it will require some extra work.    
+Use a **Fedora 40** system, as later versions require additional steps and different distros require different package names and/or additional steps. You can try and adapt the steps to other systems, but it will require some extra work.    
 
 Experimentally, we have determined that the minimum hardware required to follow this tutorial are:
 
@@ -112,7 +112,7 @@ Add both (or just the second) to the *.bashrc*.
 
 ## BRING UP THE FIRST COMPONENTS
 
-We will now run a limited version of the infrastracture to perform the setup for *OFED*.  
+We will now run a limited version of the infrastructure to perform the setup for *OFED*.  
 
 ### Run the First Playbook
 
@@ -180,7 +180,7 @@ and run the following command:
 cfdisk /dev/vda
 ```
 
-use the &uarr; &darr; of your keyboard to navigate to `/dev/vda4`, then use the &larr; &rarr; to select `Resize`, press `Enter` to confirm the new fisk size; then selectr `Write`, confirm writing `yes` and `Enter`, then `Enter` again to `Quit`.  
+use the &uarr; &darr; of your keyboard to navigate to `/dev/vda4`, then use the &larr; &rarr; to select `Resize`, press `Enter` to confirm the new fisk size; then select `Write`, confirm writing `yes` and `Enter`, then `Enter` again to `Quit`.  
 
 Now expand the `root` partition by running
 
@@ -196,11 +196,11 @@ df -h
 
 to check if the edit took place.
 
-### Add the Hostnames for some of the VMs
+### Add the Host Names for Some of the VMs
 
 > **NOTE** : check later if other addresses need to be addressed
 
-Edit the *hosts* file to add hostnames:
+Edit the *hosts* file to add host names:
 
 ```
 echo "192.168.132.70 ipa01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
@@ -243,7 +243,7 @@ sudo dnf -y install k9s
 
 then run it in a separate terminal by running the command `k9s`; press `Enter` to connect, then press `0` on the keyboard to show all of the *namespaces*. 
 
-### Deploy the Cert-Mananger
+### Deploy the Cert-Manager
 
 Enter into the *playbook* directory:
 
@@ -307,7 +307,7 @@ Click on `Identity` &rarr; `Users` &rarr; `+Add`and register an `svc_authentik` 
 
 ![svc user add](images/svc_user-add.png)
 
- > <span style="color:red;"> !!! WARNING !!! </span> during the user creation, `freeIPA` does not require to set a password, however *authentik* will need it to bind to the *LDAP* server. Remeber to set a password (in a test environment like this also a simple one as `12345678` is fine). Remember to fill it out even for future users.
+ > <span style="color:red;"> !!! WARNING !!! </span> during the user creation, `freeIPA` does not require to set a password, however *authentik* will need it to bind to the *LDAP* server. Remember to set a password (in a test environment like this also a simple one as `12345678` is fine). Remember to fill it out even for future users.
  
  > <span style="color:red">  !!! WARNING !!! </span> now it's unimportant, but you can set the `$HOME` and `shell` of the user from here.
 
@@ -318,7 +318,7 @@ At this point go to the `Roles` settings tab and assign to the user the `User Ad
 
 ### Authentik First Setup
 
-Before configuring the *LDAP* source in *authentik*, it is needed perform the fist access and create an admin user. To do that open a web browser and go to `auth.k3s.virtualorfeo.it/if/flow/initial-setup/` (be mindful, the final `/` is vital. It could be automatically removed by your borwser; in that case, you will land on the wrong page. Just add it back and you should be good to go).  
+Before configuring the *LDAP* source in *authentik*, it is needed perform the fist access and create an admin user. To do that open a web browser and go to `auth.k3s.virtualorfeo.it/if/flow/initial-setup/` (be mindful, the final `/` is vital. It could be automatically removed by your browser; in that case, you will land on the wrong page. Just add it back and you should be good to go).  
 
 Then enter an email (e.g. `admin@virtualorfeo.it`) and a password (eg `12345678`) and click on the `Create` button.  
  
@@ -376,5 +376,28 @@ This will setup the credentials for the *Authentik*’s default administrator `a
 
     ![Sync page](images/authentik-sync.png)
 
-    6. Test the configuration by going to *ipa* and create a test user with whatever nane you like (e.g. `user00` or `test_user`) - without forgetting to set a password! - and then use the `Run sync again` button. If you open the hambrger menu, then `Directory` &rarr; `Users` and see it listed, yout setup is working.
-    
+    6. Test the configuration by going to *ipa* and create a test user with whatever name you like (e.g. `user00` or `test_user`) - without forgetting to set a password! - and then use the `Run sync again` button. If you open the hamburger menu, then `Directory` &rarr; `Users` and see it listed, your setup is working.
+
+### Register the *MinIO* App in *Authentik*
+
+Once *Authentik* is proper configure to retrieve users from the *ipa* server, the next step is to configure *authentik* to act as a unique place to login for several services.
+In our example we are going to use *MinIO* as an example, but the same procedure can be repeated with other applications.
+
+#### Define a scope mapping
+
+The primary way to manage accesses in *MinIO* is via policies, We need to configure *authentik* to return a list of which *MinIO* policies should be applied to a user.  
+For this reason the first step is to set it up. Access with a web browser to `auth.k3s.virtualorfeo.it`, go to the `Admin interface` and click on:  
+
+`Customization` &rarr; `Property Mappings` &rarr; `Create` and select:
+
+* `LDAP Property Mapping` &rarr; Next
+* **Name**: *Provider for minio*
++ **Object Field**: `minio`
+* **Expression**:
+```
+return {
+  "policy": "readwrite",
+}
+```
+
+
