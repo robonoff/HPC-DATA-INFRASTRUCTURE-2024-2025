@@ -312,7 +312,7 @@ Click on `Identity` &rarr; `Users` &rarr; `+Add`and register an `svc_authentik` 
  > <span style="color:red">  !!! WARNING !!! </span> now it's unimportant, but you can set the `$HOME` and `shell` of the user from here.
 
  Once you filled the form up, click on `Add and Edit` button.  
-At this point go to the `Roles` settings tab and assign to the user the `User Administrators` roles clicking on the `Add` button:
+At this point, a new dashboard will show (in case it doesn't, click on the svc_authentick just created). Click on the `Roles` settings tab and assign to the user the `User Administrators` roles clicking on the `Add` button:
 
 ![Add administrator role to svc user](images/svc_user-edit.png)
 
