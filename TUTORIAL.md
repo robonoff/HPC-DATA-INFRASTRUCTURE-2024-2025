@@ -373,3 +373,6 @@ This will setup the credentials for the *Authentik*’s default administrator `a
     ![Last page of the LDAP setup](images/authentik-ldap-last-tab.png)
 
     5. Click on the `Save` button, then click on the `freeipa` name, then on the `Run syng` button. It won't automatically update, so you have to either refresh the paege or navigate in and out of the page to see if it updated. It will display errors, do not worry.
+
+    ![Sync page](images/authentik-sync.png)
+    
