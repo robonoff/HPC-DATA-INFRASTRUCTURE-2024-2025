@@ -375,4 +375,6 @@ This will setup the credentials for the *Authentik*’s default administrator `a
     5. Click on the `Save` button, then click on the `freeipa` name, then on the `Run syng` button. It won't automatically update, so you have to either refresh the paege or navigate in and out of the page to see if it updated. It will display errors, do not worry.
 
     ![Sync page](images/authentik-sync.png)
+
+    6. Test the configuration by going to *ipa* and create a test user with whatever nane you like (e.g. `user00` or `test_user`) - without forgetting to set a password! - and then use the `Run sync again` button. If you open the hambrger menu, then `Directory` &rarr; `Users` and see it listed, yout setup is working.
     
