@@ -415,6 +415,8 @@ To use that go to the `Admin interface` and then:
     * **Policy engine mode**: `any`
     * **UI.settings** &rarr; **Launch URL** : `https://minio.k3s.virtualorfeo.it`
 
+![MinIO provider first tab](images/authentik-minio-first-tab.png)
+
 * In **Provider Type** tab select `OAuth2/OIDC (Open Authorization/OpenID Connect)` (you will have to scroll up to find it) and click `Next`.
 * In the **Configure OAuth2/OpenId Provider** tab select:
 
@@ -422,3 +424,57 @@ To use that go to the `Admin interface` and then:
     * **Authentication flow**: `default-authentication-flow (Welcome to Authentik)` (it's drop down menu, the first option)
     * **Authorization flow**: `default-provider-authorization-explicit-consent (Authorize Application)` (it's drop down menu, again the first option)
 
+![MinIO provider](images/authentik-minio-second-tab.png)
+
+> !!! WARNING !!! Ensure to save in a safe place the `Client ID` and most importantly the `Client Secret` values, as you will need it immediately after this step and finding them again is a bit of a pain.
+
+* Scroll down and in the **Protocol Settings** section:
+
+    * **Client type** : `confidential`
+    * **Redirect URIs/Origins (RegEx)**: `https://minio.k3s.virtualorfeo.it/oauth_callback`
+
+![MinIO secrets](images/authentik-minio-third-tab.png)
+
+### Deploy *MinIO*
+
+The installation of *minio* is done using `kustomize`. First of all go in the *minio* folder and create a `minio-dev` namespace:  
+
+```
+cd $ROOTPROJECTDIR/minio
+kubectl create namespace minio-dev
+```
+
+#### Retrieve the CA certificate and trust it
+
+*Minio* by default will not trust any third-party CA, so it is needed to provide the CA certificate to trust it.  
+This will be passed as a secret to the *minio* pod:
+
+```
+kubectl get secrets --namespace authentik authentik-tls -o yaml | awk '/tls\.crt/{print $2}' | base64 --decode > /tmp/chain.pem
+TRUSTED_CA_CRT=$(sed -n '/-----BEGIN CERTIFICATE-----/{:a;p;n;/-----END CERTIFICATE-----/!ba;p;q}' /tmp/chain.pem)
+export TRUSTED_CA_CRT_ENCODED=$(echo -n "$TRUSTED_CA_CRT" | base64 | sed 's/^/    /')
+envsubst < ca-secret.yaml | kubectl apply -f -
+```
+
+#### Edit the customization file for kustomize
+
+Edit the file `./dev/kustomization.yaml` (which is located inside the `minio` folder we switched into) by running:
+
+```
+nano ./dev/kustomization.yaml
+```
+
+and replacing the `REDACTED` entries with the *app ID* and the *secret* we saved in the previous step.  
+
+After that, replace the `"readwrite"` entry with `consoleAdmin`. This ensures that for later steps we have the right permissions.  
+
+![kustomize](images/kustomization.png)
+
+Now create the manifest to apply and apply it:
+
+```
+kustomize build dev > dev/manifest.yaml
+kubectl apply -f dev/manifest.yaml
+```
+
+Finally, to test that everything is working, open a web browser and go to `https://minio.k3s.virtualorfeo.it` and try to login with the user `user00` and the password you set in the *ipa* server.
