@@ -477,4 +477,12 @@ kustomize build dev > dev/manifest.yaml
 kubectl apply -f dev/manifest.yaml
 ```
 
-Finally, to test that everything is working, open a web browser and go to `https://minio.k3s.virtualorfeo.it` and try to login with the user `user00` and the password you set in the *ipa* server.
+Finally, to test that everything is working, open a web browser and go to `https://minio.k3s.virtualorfeo.it` and try to login with the user `user00` and the password you set in the *ipa* server. If everything works, you should see something like this
+
+![minio login](images/minio_sso.png)
+
+which will redirect you to the *authentik* login page. It should also ask for confirmation.  
+
+if that works, you're done with the initial setup.
+
+## DEPLOY THE REST OF THE VIRTUAL ORFEO INFRASTRUCTURE
