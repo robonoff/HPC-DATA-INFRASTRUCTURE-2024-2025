@@ -458,7 +458,7 @@ envsubst < ca-secret.yaml | kubectl apply -f -
 
 #### Edit the customization file for kustomize
 
-Edit the file `./dev/kustomization.yaml` (which is located inside the `minio` folder we switched into) by running:
+Edit the file `./dev/kustomization.yaml` (which is located inside the `minio` folder we switched into) by using the text editor you like best:
 
 ```
 nano ./dev/kustomization.yaml
