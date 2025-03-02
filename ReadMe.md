@@ -400,4 +400,25 @@ return {
 }
 ```
 
+#### Create an Application and a Provider in *authentik*
+
+Since release `2024.2` *Authentik* provider a wizard which allows to define in a single shot both an `Application` and a `Provider` instances automatically configured to be used together.  
+To use that go to the `Admin interface` and then:
+
+`Applications` &rarr; `Applications` &rarr; `Create with Wizard`, and select:
+
+* In the **Application Details** tab:
+    
+      
+    + **name**: `minio`  
+    * **slug**: `minio`
+    * **Policy engine mode**: `any`
+    * **UI.settings** &rarr; **Launch URL** : `https://minio.k3s.virtualorfeo.it`
+
+* In **Provider Type** tab select `OAuth2/OIDC (Open Authorization/OpenID Connect)` (you will have to scroll up to find it) and click `Next`.
+* In the **Configure OAuth2/OpenId Provider** tab select:
+
+    * **Name**:`Provider for MinIO`
+    * **Authentication flow**: `default-authentication-flow (Welcome to Authentik)` (it's drop down menu, the first option)
+    * **Authorization flow**: `default-provider-authorization-explicit-consent (Authorize Application)` (it's drop down menu, again the first option)
 
