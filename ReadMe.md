@@ -212,6 +212,9 @@ echo "192.168.132.100 minio.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev
 echo "192.168.132.50 login01 login01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.51 node01 node01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.52 node02 node02.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.81 ceph01" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.82 ceph02" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.83 ceph03" | sudo tee -a /etc/hosts > /dev/null
 ```
 
 ### Export the Certificates from IPA
