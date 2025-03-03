@@ -6,7 +6,7 @@ Note that, differently from the given example, in which only the `ipa01` and `ku
 ### HPC-infrastructure assignments
 
 #### 1. Implement Distributed Storage with Ceph
-Your first task is to set up a **Ceph**-based distributed storage system within Virtual Orfeo, mirroring the approach used in the production environment. The main steps include:
+The first task is to set up a **Ceph**-based distributed storage system within Virtual Orfeo, mirroring the approach used in the production environment. The main steps include:
 
 ---
 1. **VM Planning**
@@ -68,8 +68,9 @@ Also, check if the Cluster/Physical disks if everything has worked.
 ![Add administrator role to svc user](images/ceph-overview.jpg)
 
 
+
 #### 2. Enhance Slurm Configuration
-The current Slurm configuration is minimal and simply queues jobs in submission order. Your second task is to modify this configuration to resemble a production-like environment by introducing **Quality of Service (QOS)** rules. Specifically:
+The current Slurm configuration is minimal and simply queues jobs in submission order. The second task is to modify this configuration to resemble a production-like environment by introducing **Quality of Service (QOS)** rules. Specifically:
 
 - **Implement a Debug QOS**:
   Create a high-priority QOS (for example, `orfeo_debug`) that allows short, resource-light jobs to run with high priority regardless of submission order.
@@ -81,6 +82,17 @@ You can modify the Slurm configuration by:
 - Updating the **`slurm-conf`** ConfigMap in the Kubernetes cluster.
 
 To inspect the cluster, log into `kube01` and use **`k9s`** to browse the pods and ConfigMaps.
+
+To implement to QoS, the documentations we took inspiration from are the following:
+
+[Slurm Quality of Service](https://slurm.schedmd.com/qos.html)
+
+[sacctmgr from Slurm](https://slurm.schedmd.com/sacctmgr.html)
+
+[sacctmgr tips JHPCE](https://jhpce.jhu.edu/slurm/tips-sacctmgr/)
+
+
+
 
 ### Data-infrastructure tasks
 
