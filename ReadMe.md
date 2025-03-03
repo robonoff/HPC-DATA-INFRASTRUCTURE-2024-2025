@@ -195,7 +195,9 @@ and then
 df -h
 ```
 
-to check if the edit took place.
+to check if the edit took place.  
+
+Now exit the VM by either pressing `Ctrl`+`d` or by writing `exit`.
 
 ### Add the Host Names for Some of the VMs
 
