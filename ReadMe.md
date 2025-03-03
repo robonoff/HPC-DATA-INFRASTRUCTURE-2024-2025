@@ -261,6 +261,12 @@ The first one enables the *ACME* challenge
 ansible-playbook 01_ipa_acme_enable.yml
 ```
 
+then
+
+```bash
+ansible-playbook 02_kube_acme_enable.yml
+```
+
 then the second one handles the certifications through `kubernetes` and the `IPA` server.  
 
 In order to work, `cert-manager` requires a valid issuer. Since all the setup is a testing environment, with a private DNS and CA (IPA), The IPA node is used as `ClusterIssuer`:
