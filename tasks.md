@@ -58,13 +58,14 @@ https://192.168.132.81:8443/
 It should appear a dashboard like this:
 
 
-![Add administrator role to svc user](images/ceph-overview.jpg)
+![Add administrator role to svc user](images/ceph-dashboard.jpg)
 
 On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to pool to check if they have been created.
 Same is for OSDs: navigate to Cluster/OSDs through the GUI.
 Also, check if the Cluster/Physical disks if everything has worked.
 
 
+![Add administrator role to svc user](images/ceph-overview.jpg)
 
 
 #### 2. Enhance Slurm Configuration
