@@ -495,3 +495,7 @@ Now run the rest of the playbooks found in `virtualorfeo/playbooks`. So, move in
 ```bash
 ansible-playbook 00_main.yml
 ```
+
+alternatively - and probably better - run them one by one (except the ones that start with a 9, which are there to handle the destruction, pausing and restarting the cluster).
+
+## DEPLOY CEPH
