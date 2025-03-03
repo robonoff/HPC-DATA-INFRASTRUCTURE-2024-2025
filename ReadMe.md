@@ -209,6 +209,7 @@ Edit the *hosts* file to add host names:
 echo "192.168.132.70 ipa01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.100 auth.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.100 minio.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.50 login01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 ```
 
 ### Export the Certificates from IPA
@@ -513,3 +514,24 @@ kubectl delete cronjob slurm-cronjob -n slurm
 ```
 
 ## DEPLOY CEPH
+
+Now everything is in order to deploy the *ceph* cluster. We will use Andrea Esposito's playbook.  
+
+Move into the right directory:
+
+```bash
+cd <path-to-your-project-directory>/units-infra-final/01_ceph/playbooks
+```
+
+> NOTE: it's important not to run the playbooks from just any directory because some configuration files need you to be in the same directory as the playbook to work  
+
+This will take a while, so it will probably fail due to time limits being exceeded. If that's the case, just run the mount playbook alone:
+
+```bash
+ansible-playbook 05_mount.yml
+```
+
+If everything work, you're done! Let's check it on the login node. Run:
+
+```bash
+ssh root@
