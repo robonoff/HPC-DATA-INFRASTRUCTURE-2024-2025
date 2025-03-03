@@ -504,6 +504,12 @@ Now run the rest of the playbooks found in `virtualorfeo/playbooks`. So, move in
 ansible-playbook 00_main.yml
 ```
 
-alternatively - and probably better - run them one by one (except the ones that start with a 9, which are there to handle the destruction, pausing and restarting the cluster).
+alternatively - and probably better - run them one by one (except the ones that start with a 9, which are there to handle the destruction, pausing and restarting the cluster).  
+
+> !!! IMPORTANT !!! you need to run this command to prevent the `kube01` *cronjobs* from completely filling up your pod space:
+
+```bash
+kubectl delete cronjob slurm-cronjob -n slurm
+```
 
 ## DEPLOY CEPH
