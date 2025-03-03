@@ -27,11 +27,12 @@ Your first task is to set up a **Ceph**-based distributed storage system within 
    Mount the Ceph file system on all nodes (e.g., at `/orfeo/cephfs/scratch`).
 
 
+
 All of these tasks have been automated through the **Ansible** playbooks. 
 After you have followed the first tutotial (setup), navigate to:
 
 ```
-cd units-infra-final/01_ceph
+cd units-infra-final/01_ceph/playbooks
 ```
 
 To bring up all the ceph nodes (needed to simulate the storage nodes), run in your terminal the following command:
@@ -48,16 +49,21 @@ After this
 ansible-playbook 05_mount.yml
 ```
 
-This is done to automante all the steps available at this [tutorial]().
+This is done to automate all the steps available at this [tutorial](https://github.com/Foundations-of-HPC/HPC-and-DATA-Infrastructure-2024/blob/main/tutorials/ceph/ceph-deploy.md).
 
-
-
-Optionally, you can use **Ansible** to automate some or all of these steps, such as mounting the file system on each node.
-More details can be found in `ceph-deploy.md`, which follows the deployment approach introduced in the lectures.
-
-
+After you have runned all of the playbooks, open this address on chromium (the browser previously used during the setup)
 
 https://192.168.132.81:8443/
+
+It should appear a dashboard like this:
+
+
+![Add administrator role to svc user](images/ceph-overview.jpg)
+
+On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to pool to check if they have been created.
+Same is for OSDs: navigate to Cluster/OSDs through the GUI.
+Also, check if the Cluster/Physical disks if everything has worked.
+
 
 
 
