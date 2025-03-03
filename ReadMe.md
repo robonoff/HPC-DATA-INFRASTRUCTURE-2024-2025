@@ -18,21 +18,22 @@ This tutorial is an expanded version of [Isac Pasianotto's tutorial](https://git
 For this to work, we will need the repos for [Virtual ORFEO](https://gitlab.com/area7/datacenter/codes/virtualorfeo), [the one specific for the kubernetes overlay](https://gitlab.com/area7/datacenter/codes/orfeokuboverlay) and [the one we made for Ceph](https://gitlab.com/dododevs/units-infra-final).  
 
 Download them using `SSH`:  
-```
+
+```bash
 git clone git@gitlab.com:area7/datacenter/codes/virtualorfeo.git
 ```
 
-```
+```bash
 git clone git@gitlab.com:area7/datacenter/codes/orfeokuboverlay.git
 ```
 
-```
+```bash
 git clone git@gitlab.com:dododevs/units-infra-final.git
 ```  
 
 we will need a specific branch for `orfeokuboverlay`, so run:  
 
- ```
+ ```bash
  cd orfeokuboverlay/
  git checkout hotfixes/authentik
  ```
@@ -43,7 +44,7 @@ we will need a specific branch for `orfeokuboverlay`, so run:
 
 Move into `virtualorfeo` and run:
 
-```
+```bash
 git submodule init && git submodule update --remote
 sudo dnf install -y $(sed -r '/^#/d' requirements.txt)
 ```
@@ -52,27 +53,27 @@ Then install other packages that will be required but might not have already bee
 
 * the Python version of *Kubernetes*, the *jq* package:
 
-```
+```bash
 sudo dnf -y install jq python3-kubernetes
 ```
 
 * You should already have `kubectl` installed, but let's also install the `kustomize` command independently (required by one of the *playbooks* for *MinIO*)
 
-```
+```bash
 curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 sudo mv kustomize /usr/local/bin/
 ```
 
 * Install *Jetstack* (required by a *kuboverlay* *playbook*):
 
-```
+```bash
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 ```
 
 * *(OPTIONAL)* Install *Chromium*, which works better for certificates and proxies:
 
-```
+```bash
 sudo dnf install chromium
 ```
 
@@ -80,7 +81,7 @@ sudo dnf install chromium
 
 The tested provider for *vagrant* is *libvirt*, hence install the *vagrant* plugin for it, enable the services and add your user to the *libvirt* group.
 
-```
+```bash
 vagrant plugin install vagrant-libvirt
 sudo systemctl enable --now libvirtd
 sudo usermod -aG libvirt $(whoami)
@@ -98,13 +99,13 @@ First of all, we need to indicate where to find the configuration file for kuber
 
 If you don't have any more clusters, you can edit the *.bashrc* to include these, otherwise you probably already know how to operate:
 
-```
+```bash
 export KUBECONFIG=<path-to-your-project-folder>/virtualorfeo/playbooks/kube_config
 ```
 
 Then we add a variable to find the *orfeokuboverlay* directory:
 
-```
+```bash
 export ROOTPROJECTDIR=<path-to-your-project-folder>/orfeokuboverlay
 ```
 
@@ -118,19 +119,19 @@ We will now run a limited version of the infrastructure to perform the setup for
 
 Move into the right directory:
 
-```
+```bash
 cd <path-to-your-project-folder>/virtualorfeo/playbooks
 ```
 
 and apply/install the required *ansible* settings:
 
-```
+```bash
 ansible-galaxy install --role-file roles/requirements.yml --force
 ```
 
 After that is done, run the first *playbook* in a limited capacity by selecting only the commands tagged with _kub_:
 
-```
+```bash
 ansible-playbook 00_main.yml --tags kub
 ```
 
@@ -146,37 +147,37 @@ Now, to make all the required pods and services fit in the `Kubernetes` VM, we n
 
 First of all, let's get the ID of the *kube01*  VM:
 
-```
+```bash
 vagrant global-status
 ```
 
 stop it
 
-```
+```bash
 vagrant halt <kube01-id>
 ```
 
 then modify the image by adding 5 GB
 
-```
+```bash
 sudo qemu-img resize /var/lib/libvirt/images/k3s_nodes_kube01.img +5G
 ```
 
 Now let's turn the machine back up again:
 
-```
+```bash
 vagrant up <kube01-id>
 ```
 
 then log into it as `root` in kube01:
 
-```
+```bash
 ssh root@192.168.132.10
 ```
 
 and run the following command:
 
-```
+```bash
 cfdisk /dev/vda
 ```
 
@@ -184,13 +185,13 @@ use the &uarr; &darr; of your keyboard to navigate to `/dev/vda4`, then use the 
 
 Now expand the `root` partition by running
 
-```
+```bash
 sudo btrfs filesystem resize max /
 ```
 
 and then
 
-```
+```bash
 df -h
 ```
 
@@ -202,7 +203,7 @@ to check if the edit took place.
 
 Edit the *hosts* file to add host names:
 
-```
+```bash
 echo "192.168.132.70 ipa01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.100 auth.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.100 minio.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
@@ -214,19 +215,19 @@ Moreover, even if is not strictly necessary, to avoid the browser warning due to
 
 Export the certificates from the *IPA* VM:
 
-```
+```bash
 scp root@ipa01.virtualorfeo.it:/etc/ipa/ca.crt /tmp/freeipa-virtorfeo.crt
 ```
 
 then move it to the list of `ca-trusted` sources:
 
-```
+```bash
 sudo mv /tmp/freeipa-virtorfeo.crt /etc/pki/ca-trust/source/anchors/freeipa-virtorfeo.crt
 ```
 
 Then update the list:
 
-```
+```bash
 sudo update-ca-trust
 ```
 
@@ -236,7 +237,7 @@ sudo update-ca-trust
 
 Add the required repo and install it like so:
 
-```
+```bash
 sudo dnf -y copr enable luminoso/k9s
 sudo dnf -y install k9s
 ```
@@ -247,14 +248,14 @@ then run it in a separate terminal by running the command `k9s`; press `Enter` t
 
 Enter into the *playbook* directory:
 
-```
+```bash
 cd $ROOTPROJECTDIR/playbooks
 ```
 
 then let's run the first two *playbooks*.  
 The first one enables the *ACME* challenge
 
-```
+```bash
 ansible-playbook 01_ipa_acme_enable.yml
 ```
 
@@ -262,7 +263,7 @@ then the second one handles the certifications through `kubernetes` and the `IPA
 
 In order to work, `cert-manager` requires a valid issuer. Since all the setup is a testing environment, with a private DNS and CA (IPA), The IPA node is used as `ClusterIssuer`:
 
-```
+```bash
 kubectl apply -f $ROOTPROJECTDIR/00-cert-manager/environment/dev/clusterIssuer/k3s.virtualorfeo.it.yaml
 ```
 
@@ -270,25 +271,27 @@ kubectl apply -f $ROOTPROJECTDIR/00-cert-manager/environment/dev/clusterIssuer/k
 
 The installation of *authentik* is done using *helm*:
 
-```
+```bash
 cd $ROOTPROJECTDIR/20-authentik
 ```
+
 then add the repo
-```
+
+```bash
 helm repo add authentik https://charts.goauthentik.io
 helm repo update
 ```
 
 and finally install it with the appropriate settings:
 
-```
+```bash
 helm install auth authentik/authentik \
   --version 2024.4.2 \
   --namespace authentik \
   --create-namespace \
   -f values.yaml \
   -f environments/dev/values.yaml
-  ```
+```
 
 ## SET UP *IPA* AS USER-SOURCE FOR *Authentik*
 
@@ -486,3 +489,9 @@ which will redirect you to the *authentik* login page. It should also ask for co
 if that works, you're done with the initial setup.
 
 ## DEPLOY THE REST OF THE VIRTUAL ORFEO INFRASTRUCTURE
+
+Now run the rest of the playbooks found in `virtualorfeo/playbooks`. So, move into that directory. You can either re-run the playbook 00 without tags like so
+
+```bash
+ansible-playbook 00_main.yml
+```
