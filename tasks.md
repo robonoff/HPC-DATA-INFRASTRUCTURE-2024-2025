@@ -101,7 +101,7 @@ which is the pod for scheduling the various jobs.
 ![k9s GUI options](images/GUImenu.jpg)
 
 After selecting the desired pod, for example you can click on <d> on the keyboard and an entire description of the pod features will appear. 
-In our specific case, right now, what it's required to do is to open the shell. To do so, click the <s> letter on the keyboard.
+In our specific case, right now, what it's required to do is to open the shell. To do so, click the *s* letter on the keyboard.
 At this point, you will be in **root@slurmctld-p-0**. 
 Run this command:
 
