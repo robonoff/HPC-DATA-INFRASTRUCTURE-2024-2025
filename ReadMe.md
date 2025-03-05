@@ -601,4 +601,59 @@ if all looks good, let's proceed.
 
 Now we need to edit some configuration files to enforce the changes.  
 
-Edit the *sssd.conf* file by adding
+Edit the *sssd.conf* file by adding an ovveride command to the `[domain/default]` section:
+
+```bash
+override_homedir = /mnt/testfs/home/%u
+```
+
+then save and restart the *SSSD*:
+
+```bash
+sudo systemctl restart sssd
+```
+
+Now, we need to edit two more files. The first one is the *pam* *sshd*, found at
+
+```bash
+sudo nano /etc/pam.d/sshd
+```
+
+where you need to add BEFORE `session include password-auth` this line:
+
+```bash
+session required pam_mkhomedir.so skel=/etc/skel umask=0077
+```
+
+save and exit.  
+
+Insert the same line in `/etc/pam.d/system-auth`:
+
+```bash
+sudo nano /etc/pam.d/system-auth
+```
+
+Now restart the *SSH* service:
+
+```
+sudo systemctl restart sshd
+```
+
+### Test the change
+
+Log in with a user you have never logged in with before, for example:
+
+```bash
+ssh user01@login01
+```
+
+then check the path of the home. If all is right, you should see
+
+```bash
+pwd
+```
+
+```bash
+/mnt/testfs/user01
+```
+
