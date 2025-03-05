@@ -539,4 +539,66 @@ ansible-playbook 05_mount.yml
 If everything work, you're done! Let's check it on the login node. Run:
 
 ```bash
-ssh root@
+ssh root@login01
+```
+
+then
+
+```bash
+cd /mnt/testfs/
+touch test_file
+```
+
+if this works, it's a good indicator we are good to go. To really make sure, let's log in into one of the compute nodes. Log out of `login01` and then:
+
+```bash
+ssh root@node01
+```
+
+then
+
+```bash
+cd /mnt/testfs/
+ls -l
+```
+
+if you see the same `test_file` we made while in the `login01` node, we actually are on the distributed filesystem.
+
+## [OPTIONAL - POORLY TESTED] Automatically create a home directry on the Ceph cluster for each user and use it as such
+
+This part is entirely optional and it has not really been tested much. In the previous step, we used the `root` user for a reason: actually the directory we were using is owned by `root`, so other users do not have *write* permissions, so we would not have been able to create the `test_file`.  
+
+This is already a problem, but the main issue is that the current home directory is not shared so this could lead to issues when running anything on the nodes, since they can't access the same files as the login node can.  
+
+We can solve both of these problems at once by editing some configuration files to automatically create a directory named as the user on the *ceph* cluster, and automatically set it as the *home*.  
+
+
+### Authenticate and change default home settings
+
+First of all, let's authenticate in *FreeIPA*:
+
+```bash
+kinit admin
+```
+
+it will require the password for *FreeIPA* which is, if you didn't change it, `12345678`.  
+
+Now let's update the default new *home* directory:
+
+```bash
+ipa config-mod --homedirectory=/mnt/testfs/home
+```
+
+let's check whether it worked:
+
+```bash
+ipa config-show | grep 'Home directory base'
+```
+
+if all looks good, let's proceed.
+
+### Enforce the changes
+
+Now we need to edit some configuration files to enforce the changes.  
+
+Edit the *sssd.conf* file by adding
