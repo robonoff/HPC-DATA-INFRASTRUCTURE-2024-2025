@@ -58,14 +58,14 @@ https://192.168.132.81:8443/
 It should appear a dashboard like this:
 
 
-![Add administrator role to svc user](images/ceph-dashboard.jpg)
+![Ceph Dashboard](images/ceph-dashboard.jpg)
 
 On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to pool to check if they have been created.
 Same is for OSDs: navigate to Cluster/OSDs through the GUI.
 Also, check if the Cluster/Physical disks if everything has worked.
 
 
-![Add administrator role to svc user](images/ceph-overview.jpg)
+![Ceph overview](images/ceph-overview.jpg)
 
 
 
@@ -82,6 +82,39 @@ You can modify the Slurm configuration by:
 - Updating the **`slurm-conf`** ConfigMap in the Kubernetes cluster.
 
 To inspect the cluster, log into `kube01` and use **`k9s`** to browse the pods and ConfigMaps.
+The first step to perform from the terminal of your main machine, open k9s in this simple way:
+
+```
+k9s
+```
+
+after that, a GUI will open. This is what you will see
+
+
+![k9s GUI](images/k9sGUI.jpg)
+
+On the top of the GUI, you can find lots of ways you can interact with k9s.
+Through the &uarr; &darr; of your keyboard, it's possible to select the pod you wanna interact with. In our case, at this step, we want to interact with **slurmctld**, 
+which is the pod for scheduling the various jobs.
+
+
+![k9s GUI options](images/GUImenu.jpg)
+
+After selecting the desired pod, for example you can click on <d> on the keyboard and an entire description of the pod features will appear. 
+In our specific case, right now, what it's required to do is to open the shell. To do so, click the <s> letter on the keyboard.
+At this point, you will be in **root@slurmctld-p-0**. 
+Run this command:
+
+```
+vi etc/slurm/slurm.conf
+```
+
+We need to modify the priorityweightqos as follows:
+
+
+priorityweightqos=10000
+
+
 
 To implement to QoS, the documentations we took inspiration from are the following:
 
