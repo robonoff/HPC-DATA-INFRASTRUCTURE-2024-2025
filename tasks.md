@@ -111,9 +111,9 @@ vi etc/slurm/slurm.conf
 
 We need to modify the priorityweightqos as follows:
 
-
+```
 priorityweightqos=10000
-
+```
 
 
 To implement to QoS, the documentations we took inspiration from are the following:
