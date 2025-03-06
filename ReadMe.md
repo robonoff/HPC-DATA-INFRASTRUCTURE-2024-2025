@@ -389,7 +389,7 @@ This will setup the credentials for the *Authentik*’s default administrator `a
 
     ![Last page of the LDAP setup](images/authentik-ldap-last-tab.png)
 
-    5. Click on the `Save` button, then click on the `freeipa` name, then on the `Run syng` button. It won't automatically update, so you have to either refresh the paege or navigate in and out of the page to see if it updated. It will display errors, do not worry.
+    5. Click on the `Finish` button, then click on the `freeipa` name, then on the `Run sync` button. It won't automatically update, so you have to either refresh the page or navigate in and out of the page to see if it updated. It will display errors, do not worry.
 
     ![Sync page](images/authentik-sync.png)
 
@@ -481,9 +481,9 @@ Edit the file `./dev/kustomization.yaml` (which is located inside the `minio` fo
 nano ./dev/kustomization.yaml
 ```
 
-and replacing the `REDACTED` entries with the *app ID* and the *secret* we saved in the previous step.  
+and in `"MINIO_IDENTITY_OPENID_CLIENT_ID`" and `"MINIO_IDENTITY_OPENID_CLIENT_SECRET`", replace the `REDACTED` entries with the *app ID* and the *secret* we saved in the previous step.  
 
-After that, replace the `"readwrite"` entry with `consoleAdmin`. This ensures that for later steps we have the right permissions.  
+After that, in the `"MINIO_IDENTITY_OPENID_ROLE_POLICY"`, replace `"readwrite"` entry with `consoleAdmin`. This ensures that for later steps we have the right permissions.  
 
 ![kustomize](images/kustomization.png)
 
