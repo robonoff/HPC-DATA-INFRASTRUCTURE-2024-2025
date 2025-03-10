@@ -857,5 +857,14 @@ First of all, let's generate the `access key`. To do so, navigate to [https://mi
 
 Then click on `Create access key` button
 
-![Inteface for the access key management](images/)
+![Inteface for the access key management](images/minio_acces_key_button.png)
+
+click on the `Create` button
+
+![Access key reation interface](images/minio_access_key_create_button.png)
+
+which will open an interface with the key and a button to download the *json* containing the keys. Do so, as this will be the last time they will be shown and using the file is more useful than having them written somewhere.  
+
+![Accesss key json format download button](images/minio_access_key_json_download.png)
+
 
