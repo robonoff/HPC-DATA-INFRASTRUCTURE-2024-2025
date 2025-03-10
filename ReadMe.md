@@ -843,6 +843,19 @@ and then sbatch it with the higher priority *QoS*
 sbatch -p p1 --qos=debug --job_name=debug test.sh
 ```
 
-now run `squeue` to see the queue, what's in it and what's being run. Either you can cancel the running job with`scancel <job-id>`, then run `squeue` again and check if the `debug` job is being run ahead of `normal_1`, or you can just wait and run `watch squeue` and see what happens.
+now run `squeue` to see the queue, what's in it and what's being run. Either you can cancel the running job with`scancel <job-id>`, then run `squeue` again and check if the `debug` job is being run ahead of `normal_1`, or you can just wait and run `watch squeue` and see what happens.  
 
+## Running *MinIO* with 
+
+It is possible to run *MinIO* from command line or using a script, for example a *Python* one, using the appropriate *API*. To do so, one needs to install the proper packages, libraries and follow the right set up steps.  
+
+### Get the secret key
+
+First of all, let's generate the `access key`. To do so, navigate to [https://minio.k3s.virtualorfeo.it/](https://minio.k3s.virtualorfeo.it/), login using the admin credentials for *Authentik* and go to the `Access Keys` section.
+
+![Homepage of the MinIO web interface](images/minio_home.png)
+
+Then click on `Create access key` button
+
+![Inteface for the access key management](images/)
 
