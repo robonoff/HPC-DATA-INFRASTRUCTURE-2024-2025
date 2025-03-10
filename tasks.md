@@ -29,7 +29,7 @@ The first task is to set up a **Ceph**-based distributed storage system within V
 
 
 All of these tasks have been automated through the **Ansible** playbooks. 
-After you have followed the first tutotial (setup-inserisci link), navigate to:
+After you have followed the first tutorial (setup-inserisci link), navigate to:
 
 ```
 cd units-infra-final/01_ceph/playbooks
@@ -116,6 +116,59 @@ We need to modify the priorityweightqos as follows:
 priorityweightqos=10000
 ```
 
+After you have modified the slurm.conf, save and exit k9s.
+Login into `root@login01.virtualorfeo.it` through the terminal
+
+```
+ssh root@login01.virtualorfeo.it
+```
+
+Create the account (it's basically the group the users are part of) with:
+
+``` 
+sacctmgr add account <randomname> cluster=orfeo Priority=1000
+```
+
+To create the users: 
+
+```
+sacctmgr add user user01 cluster=orfeo Partition=p1,p2,debug Account=<randomname>
+```
+To check if the user01 is associatied with the right account and the desired partition
+
+```
+sacctmgr list association
+```
+
+For setting a QoS:
+
+```
+sacctmgr add qos zebra
+```
+
+For setting the priority or other limits (check documentation):
+
+
+```
+sacctmgr modify qos zebra set priority=10
+```
+
+To add QoS to a user
+
+```
+sacctmgr modify user user01 set qos=zebra
+```
+
+It's possible to associate an user to multiple QoS:
+
+```
+sacctmgr modify user user01 set qos+=alligator
+```
+
+
+
+Now, create a bash script with slurm directives to launch a job. 
+
 
 To implement to QoS, the documentations we took inspiration from are the following:
 
@@ -126,7 +179,8 @@ To implement to QoS, the documentations we took inspiration from are the followi
 [sacctmgr tips JHPCE](https://jhpce.jhu.edu/slurm/tips-sacctmgr/)
 
 
-To create and modify the QoS, the command sacctmgr is going to become our bestfriend. 
+
+
 
 
 
