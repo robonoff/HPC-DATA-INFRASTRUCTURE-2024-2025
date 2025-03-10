@@ -1,7 +1,7 @@
 ## Tasks
 
-After referring to the [this quick-start guide](inseriscisetuplink) to deploy a working testing infrastructure as starting point for the all the tasks described below.
-Note that, differently from the given example, in which only the `ipa01` and `kube01` node are used, you will need to have the entire virtualorfeo environment up and running!
+
+After referring to the [this quick-start guide](inseriscisetuplink) to deploy a working testing infrastructure as starting point, it's time to implement all the tasks described below.
 
 ### HPC-infrastructure assignments
 
@@ -29,7 +29,7 @@ The first task is to set up a **Ceph**-based distributed storage system within V
 
 
 All of these tasks have been automated through the **Ansible** playbooks. 
-After you have followed the first tutotial (setup), navigate to:
+After you have followed the first tutotial (setup-inserisci link), navigate to:
 
 ```
 cd units-infra-final/01_ceph/playbooks
@@ -42,8 +42,8 @@ To bring up all the ceph nodes (needed to simulate the storage nodes), run in yo
 ansible-playbook 00_all.yml
 ```
 
-With this .yml, you'll bring up three ceph nodes (ceph01, ceph02 and ceph03). 
-After this
+With this `.yml`, you'll bring up three ceph nodes (`ceph01`, `ceph02` and `ceph03`). 
+After this it is necessary to connect our ceph nodes to the virtual environmente through:
 
 ```
 ansible-playbook 05_mount.yml
@@ -70,18 +70,19 @@ Also, check if the Cluster/Physical disks if everything has worked.
 
 
 #### 2. Enhance Slurm Configuration
-The current Slurm configuration is minimal and simply queues jobs in submission order. The second task is to modify this configuration to resemble a production-like environment by introducing **Quality of Service (QOS)** rules. Specifically:
+As the current Slurm configuration on our virtual machine is minimal and simply queues jobs in submission order,
+it's necessary to modify this configuration to resemble a production-like environment by introducing **Quality of Service (QOS)** rules. Specifically:
 
 - **Implement a Debug QOS**:
   Create a high-priority QOS (for example, `orfeo_debug`) that allows short, resource-light jobs to run with high priority regardless of submission order.
 
   For instance, if jobs `job1`, `job2`, `job3` were submitted, followed by a debug job `dbg1` (with `--qos=orfeo_debug`), the debug job should preempt or be scheduled before the other queued jobs, provided it meets the debug QOS criteria (e.g., minimal resources and short runtime).
 
-You can modify the Slurm configuration by:
+The first step is to modify the Slurm configuration by:
 - Editing files directly in the **`slurmctld`** pod, or
 - Updating the **`slurm-conf`** ConfigMap in the Kubernetes cluster.
 
-To inspect the cluster, log into `kube01` and use **`k9s`** to browse the pods and ConfigMaps.
+In order to do so, let's start inspecting the cluster: use **`k9s`** to browse the pods and ConfigMaps.
 The first step to perform from the terminal of your main machine, open k9s in this simple way:
 
 ```
@@ -123,6 +124,10 @@ To implement to QoS, the documentations we took inspiration from are the followi
 [sacctmgr from Slurm](https://slurm.schedmd.com/sacctmgr.html)
 
 [sacctmgr tips JHPCE](https://jhpce.jhu.edu/slurm/tips-sacctmgr/)
+
+
+To create and modify the QoS, the command sacctmgr is going to become our bestfriend. 
+
 
 
 
