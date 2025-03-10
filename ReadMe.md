@@ -657,3 +657,70 @@ pwd
 /mnt/testfs/user01
 ```
 
+## Configure *SLURM* Users
+
+We will now configure the *slurm* users and partitions to work properly and then set the *QoS* to differentiate usecases.  
+
+### Gather Info
+
+Now, your *slurm* install hsould not yet have any of the *FreeIPA* accounts added to any of the partitions.  
+
+Login in `root` in the `login01` node:
+
+```bash
+ssh root@login01
+```
+
+Let's first of all list the users currently added to *slurm*:
+
+```bash
+sacctmgr show users
+```
+
+you should get this output:
+
+```bash
+      User   Def Acct     Admin 
+---------- ---------- --------- 
+      root       root Administ+ 
+
+```
+
+Login into *kerberos* to access *FreeIPA* from CLI (again, use the password `12345678` when requested):
+
+```bash
+kinit admin
+```
+
+You should now be able to successfully run this command
+
+```bash
+ipa user-find --all | awk '/User login/ {user=$3} /UID:/ {print user, $2}'
+```
+
+and get something like this output
+
+```bash
+admin 584000000
+svc_authentik 584000003
+user00 584000004
+user01 584000005
+user02 584000006
+user03 584000007
+```
+
+Now let's check out the *QoS* and [optionally] modufy it:
+
+```bash
+sacctmgr show qos
+```
+
+this should show just the `default` one, with `Priority 0` and little else. To update it, for example to add a time limit for jobs, you can run something like:
+
+```bash
+sacctmgr modify qos normal set MaxWall=01:00:00
+```
+
+
+
+
