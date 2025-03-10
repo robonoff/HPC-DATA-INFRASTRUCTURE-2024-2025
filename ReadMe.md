@@ -709,6 +709,8 @@ user02 584000006
 user03 584000007
 ```
 
+### *QoS* Management
+
 Now let's check out the *QoS* and [optionally] modufy it:
 
 ```bash
@@ -721,6 +723,126 @@ this should show just the `default` one, with `Priority 0` and little else. To u
 sacctmgr modify qos normal set MaxWall=01:00:00
 ```
 
+Let's create a new `debug` *QoS*, with limited resources (shorter max wall time) but higher priority:
 
+```bash
+acctmgr add qos debug set MaxWall=00:01:00 Priority=10000
+```
+
+write `y` to confirm.  
+
+Now, all of this will be completely useless if we don't edit the configuration file to take into account the priority values set by the *QoS*. Let's do that by editing a configuration file found in the *slurm* controller. This is not persistent between destructions of the *kubernetes* VM, for that yoy would need to edit the configuration files used by the playbooks.  
+
+**SEE ROBERTA'S PART**
+
+### Create an Account, Add the Users, Associate the QoS
+
+Now let's create an `account` to associate with the future users:
+
+```bash
+sacctmgr add account <account-name> cluster=orfeo Priority=0
+```
+
+confirm by pressing `y`. Add users 
+
+```bash
+sacctmgr add user <user-name> cluster=orfeo Partition=p1,p2,debug Account=<account-name>
+```
+
+agin press `y` to confirm, then let's finally add the *QoS* and set the *Default QoS*:
+
+```bash
+sacctmgr modify user <user-name> set qos+=normal,debug
+```
+
+press `y` to confirm, then run the two commands for all of the users.  Now add the default *QoS*:
+
+```bash
+sacctmgr modify account <account-name> set DefaultQOS=normal
+```
+
+and press `y` to confirm. You can check whether it worked or not by running
+
+```bash
+sacctmgr show association
+```
+
+Now apply the changes with
+
+```bash
+scontrol reconfigure
+```
+
+It should now work. You can logout from `root` and login using any of the users you added and trying something like
+
+```bash
+srun -p p1 --pty bash
+```
+
+### Modify the Configuration File to Make it Work
+
+Now, since the partition configuration take precedence on the account and user configurations, we need to edit a configuration file to make the *priority* take effect.  
+
+Open `k9s`, use &uarr; and &darr; to navigate to the pod called `slurmctld-p-0` and press `s`. Now run
+
+```bash
+vi /etc/slurm/slurm.conf
+```
+
+and find the line `priorityweightqos=0`. Press `i` to enter *insertion* mode, replace the `0` with a `10000`, then press `Esc`, write `:wq` to write the file to save it and then quit the editor and then `Enter`.  
+
+Log out, now login as `root` in `login01`
+
+```bash
+ssh root@login01
+```
+
+and again run this command to apply the change
+
+```bash
+scontrol reconfigure
+```
+
+**images in Roberta's part**
+
+Now to test whether it worked or not, we need to run 3 jobs using any of the configured normal users. To do so, we need a `job` file to `sbatch` with different options in such a way to create a queue, and check whether the job with the higher priority gets started before the one with the lower priority.  
+
+Here's the most basic file to do so, a `job` that just waits for 60 seconds.
+
+```bash
+nano test.sh
+```
+
+```bash
+#!/bin/bash
+
+#SBATCH --account=default
+#SBATCH --error=error_%j.log
+
+sleep 60
+
+```
+
+```bash
+chmod +x test.sh
+```
+
+now let's sbatch it twice specifying the normal *QoS*:
+
+```bash
+sbatch -p p1 --qos=normal --job_name=normal_0 test.sh
+```
+
+```bash
+sbatch -p p1 --qos=normal --job_name=normal_1 test.sh
+```
+
+and then sbatch it with the higher priority *QoS*
+
+```bash
+sbatch -p p1 --qos=debug --job_name=debug test.sh
+```
+
+now run `squeue` to see the queue, what's in it and what's being run. Either you can cancel the running job with`scancel <job-id>`, then run `squeue` again and check if the `debug` job is being run ahead of `normal_1`, or you can just wait and run `watch squeue` and see what happens.
 
 
