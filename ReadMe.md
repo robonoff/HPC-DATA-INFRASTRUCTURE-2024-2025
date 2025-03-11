@@ -943,6 +943,58 @@ The documentation provided explains from this point onwards how to make calls to
 
 For testing purposes, you can also use them via a *Python* script - one example is provided in the [*scripts*](scripts/) directory of this repo.
 
-## Install *NOMAD*
+## *NOMAD* *Oasis*
 
+### Uninstall *podman*
 
+First of all we need to uninstall *podman*, which is used within some of the VMs and was thus installed via the requirements, but we don't actually need it on the host machine. So:
+
+```bash
+sudo dnf remove -y podman
+```
+
+### Install *Docker*
+
+Install *Docker*:
+
+```bash
+ sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+```
+
+```bash
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+Enable it:
+
+```bash
+sudo systemctl enable --now docker
+```
+
+Optionally, you could run the `hello-world` container to test it:
+
+```bash
+sudo docker run hello-world
+```
+
+### Install *NOMAD*
+
+Clone the repo:
+
+```bash
+git clone https://github.com/FAIRmat-NFDI/nomad-distro-template.git
+```
+
+move into the directory
+
+```bash
+cd nomad-distro-template
+```
+
+and just run the `compose up`command:
+
+```bash
+sudo docker compose up -d
+```
+
+It will take a while the first time.
