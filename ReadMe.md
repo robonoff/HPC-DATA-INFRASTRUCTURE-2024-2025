@@ -937,6 +937,8 @@ Added `minio` successfully.
 
 you are done. 
 
-### Using the *API* 
+### Using the *API* to make calls
 
+The documentation provided explains from this point onwards how to make calls to create buckets (basically the equivalent of directories), upload, edit, list or download files, etc.  
 
+For testing purposes, you can also use them via a *Python* script - one which is provided in this repo.
