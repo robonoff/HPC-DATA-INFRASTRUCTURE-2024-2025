@@ -209,6 +209,7 @@ Edit the *hosts* file to add host names:
 echo "192.168.132.70 ipa01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.100 auth.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.100 minio.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.100 s3.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.50 login01 login01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.51 node01 node01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.52 node02 node02.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
@@ -891,6 +892,51 @@ chmod +x mc
 sudo cp mc /usr/bin
 ```
 
+Test it by running
+
+```bash
+mc --version
+```
+
+If everything is fine, proceed.
+
+> NOTE: the system might offer to install the package for you. DO NOT ACCEPT. That is a different command also called `mc` which has nothing to do with this.
+
 ### Create the *alias*
+
+Get the access and secret keys from the `credentials.json` and paste them in a `.env` file like so:
+
+```bash
+nano .env
+```
+
+```bash
+MINIO_ACCESS_KEY=fhcMdSrkR1OVWbP8MzaL
+MINIO_SECRET_KEY=7xEhk6FZBAcYbUmw30w2v2OU9eZ6D36rekzerX99
+```
+
+then add this line to to the `.bashrc` export them as variables in every new shell
+
+```bash
+export $(cat .env | xargs)
+```
+
+then either log out and back in, close the terminal and open a new one or run `source .bashrc`.  
+
+Now you can actually create the alias to use for the *API* calls by running:
+
+```bash
+mc alias set <alias> https://s3.k3s.virtualorfeo.it $MINIO_ACCESS_KEY  $MINIO_SECRET_KEY
+```
+
+if you see an output like
+
+```bash
+Added `minio` successfully.
+```
+
+you are done. 
+
+### Using the *API* 
 
 
