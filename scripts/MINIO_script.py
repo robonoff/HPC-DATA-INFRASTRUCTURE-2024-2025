@@ -13,12 +13,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 parser = ArgumentParser()
 parser.add_argument("--credentials", action="store", default=None)
-# parser.add_argument("--create", action="store_true", default=None)
-# parser.add_argument("--delete", action="store_true", default=None)
-# parser.add_argument("--list", action="store_true", default=None)
-# parser.add_argument("--upload", action="store", default=None)
-# parser.add_argument("--remove", action="store", default=None)
-# parser.add_argument("--bucket", action="store", default=None)
+
 args = parser.parse_args()
 
 if not args.credentials:
