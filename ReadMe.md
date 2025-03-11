@@ -846,7 +846,7 @@ sbatch -p p1 --qos=debug --job_name=debug test.sh
 
 now run `squeue` to see the queue, what's in it and what's being run. Either you can cancel the running job with`scancel <job-id>`, then run `squeue` again and check if the `debug` job is being run ahead of `normal_1`, or you can just wait and run `watch squeue` and see what happens.  
 
-## Running *MinIO* with 
+## Running *MinIO* with the *API* client `mc`
 
 It is possible to run *MinIO* from command line or using a script, for example a *Python* one, using the appropriate *API*. To do so, one needs to install the proper packages, libraries and follow the right set up steps.  
 
@@ -918,7 +918,7 @@ MINIO_SECRET_KEY=7xEhk6FZBAcYbUmw30w2v2OU9eZ6D36rekzerX99
 then add this line to to the `.bashrc` export them as variables in every new shell
 
 ```bash
-export $(cat .env | xargs)
+export $(cat /path/to/your/.env | xargs)
 ```
 
 then either log out and back in, close the terminal and open a new one or run `source .bashrc`.  
@@ -941,4 +941,8 @@ you are done.
 
 The documentation provided explains from this point onwards how to make calls to create buckets (basically the equivalent of directories), upload, edit, list or download files, etc.  
 
-For testing purposes, you can also use them via a *Python* script - one which is provided in this repo.
+For testing purposes, you can also use them via a *Python* script - one example is provided in the [*scripts*](scripts/) directory of this repo.
+
+## Install *NOMAD*
+
+
