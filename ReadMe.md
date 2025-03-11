@@ -867,4 +867,30 @@ which will open an interface with the key and a button to download the *json* co
 
 ![Accesss key json format download button](images/minio_access_key_json_download.png)
 
+Now if you are using a remote machine/VM via proxy, you should note that the file should have been saved on your local machine. Upload the file using `scp` to the remote machine (assuming you downloaded in `Downloads/`)
+
+```bash
+scp $HOME/Download/credentials.json <shortcut-to-your-remote>:<path-to-your-project-directory>
+```
+
+### Install the `mc` client
+
+Now, we need to install the packages required to run the *API* calls for *MinIO* from the CLI. You can find the complete documentation [here](https://min.io/docs/minio/linux/reference/minio-mc.html).  
+
+Install it by downloading the binaries then moving them to the appropriate location:
+
+```bash
+curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+  --create-dirs \
+  -o $HOME/minio-binaries/mc \
+cd $HOME/minio-binaries \
+chmod +x mc
+```
+
+```bash
+sudo cp mc /usr/bin
+```
+
+### Create the *alias*
+
 
