@@ -373,7 +373,7 @@ Something like this should show up:
 
 
 Register an account through the **LOGIN/REGISTER** findable on the top right of the page. 
-After you have registered through an e-mail and you are logged in, on the top bar click on `Analyze` &rarr `API's`
+After you have registered through an e-mail and you are logged in, on the top bar click on `Analyze` &rarr; `API's`
 
 
 ![APINOMAD](images/apinomad.jpg)
