@@ -45,9 +45,7 @@ All of these VMs are defined within the **vagrantfiles** folder.
 
 ## Overview of OrfeoKubOverlay
 
-Alongside the `virtualorfeo` repository our testing infrastructure includes also the following one:
-
-[here](https://gitlab.com/area7/datacenter/codes/orfeokuboverlay)
+Alongside the `virtualorfeo` repository our testing infrastructure includes also the following one: [here](https://gitlab.com/area7/datacenter/codes/orfeokuboverlay).
 
 In OrfeoKubOverlay repository are stored all the manifests, values file and charts used to properly configure the `kube01` machine mentioned above.
 
