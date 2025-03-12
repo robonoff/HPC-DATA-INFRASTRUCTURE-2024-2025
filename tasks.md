@@ -232,9 +232,9 @@ now run `squeue` to see the queue, what's in it and what's being run. Either you
 
 ---
 
-### Data-infrastructure tasks
+# Data-infrastructure tasks
 
-#### 3. Deploying MINIO and testing the OFED Environment
+### Deploying MINIO and testing the OFED Environment
 
 In this section, we continue the deployment, and we test the OFED virtual environment, which includes MinIO and Authentik.
 The testing process involves verifying that Authentik and MinIO work correctly, with **both*** a **graphical** login and **API-based access**, utilizing credentials managed by Authentik.
