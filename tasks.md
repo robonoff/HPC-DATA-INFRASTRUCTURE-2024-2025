@@ -51,17 +51,13 @@ ansible-playbook 05_mount.yml
 
 This is done to automate all the steps available at this [tutorial](https://github.com/Foundations-of-HPC/HPC-and-DATA-Infrastructure-2024/blob/main/tutorials/ceph/ceph-deploy.md).
 
-After you have runned all of the playbooks, open this address on chromium (the browser previously used during the setup)
-
-https://192.168.132.81:8443/
-
-It should appear a dashboard like this:
+After you have runned all of the playbooks, open this address on chromium (the browser previously used during the setup): `https://192.168.132.81:8443/`. It should appear a dashboard like this:
 
 
 ![Ceph Dashboard](images/ceph-dashboard.jpg)
 
 On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to pools to check if they have been created.
-Same is for OSDs: navigate to `Cluster &rarr OSDs` through the GUI.
+Same is for OSDs: navigate to `Cluster` &rarr `OSDs` through the GUI.
 Also, check if the Cluster/Physical disks if everything has worked.
 
 
