@@ -74,6 +74,17 @@ it's necessary to modify this configuration to resemble a production-like enviro
 
   For instance, if jobs `job1`, `job2`, `job3` were submitted, followed by a debug job `dbg1` (with `--qos=orfeo_debug`), the debug job should preempt or be scheduled before the other queued jobs, provided it meets the debug QOS criteria (e.g., minimal resources and short runtime).
 
+
+To implement to QoS, the documentations we took inspiration from are the following:
+
+[Slurm Quality of Service](https://slurm.schedmd.com/qos.html)
+
+[sacctmgr from Slurm](https://slurm.schedmd.com/sacctmgr.html)
+
+[sacctmgr tips JHPCE](https://jhpce.jhu.edu/slurm/tips-sacctmgr/)
+
+
+
 The first step is to modify the Slurm configuration by:
 - Editing files directly in the **`slurmctld`** pod, or
 - Updating the **`slurm-conf`** ConfigMap in the Kubernetes cluster.
@@ -116,6 +127,7 @@ priorityweightqos=10000
 
 After you have modified the slurm.conf, save and exit k9s.
 Note that the editor is vi. This is the way to modify: press `i` to enter *insertion* mode,  then press `Esc`, write `:wq` to write the file to save it and then quit the editor and then `Enter`.  
+This step is **important** as it makes modifications consistent whenever we switch off the virtual machine from which we are working.
 
 Log out, now login as `root` in `login01`
 
@@ -159,10 +171,11 @@ For setting the priority or other limits (check documentation):
 
 
 ```
-sacctmgr modify qos zebra set priority=10
+sacctmgr modify qos zebra set MaxWall=00:01:00 priority=10000
 ```
 
-To add QoS to a user
+
+## To add QoS to a user
 
 ```
 sacctmgr modify user user01 set qos=zebra
@@ -173,18 +186,6 @@ It's possible to associate an user to multiple QoS:
 ```
 sacctmgr modify user user01 set qos+=alligator
 ```
-
-
-To implement to QoS, the documentations we took inspiration from are the following:
-
-[Slurm Quality of Service](https://slurm.schedmd.com/qos.html)
-
-[sacctmgr from Slurm](https://slurm.schedmd.com/sacctmgr.html)
-
-[sacctmgr tips JHPCE](https://jhpce.jhu.edu/slurm/tips-sacctmgr/)
-
-
-
 
 Now to test whether it worked or not, we need to run 3 jobs using any of the configured normal users. To do so, we need a `job` file to `sbatch` with different options in such a way to create a queue, and check whether the job with the higher priority gets started before the one with the lower priority.  
 
