@@ -9,6 +9,7 @@ After referring to the [this quick-start guide](https://github.com/robonoff/HPC-
 The first task is to set up a **Ceph**-based distributed storage system within Virtual Orfeo, mirroring the approach used in the production environment. The main steps include:
 
 ---
+
 1. **VM Planning**
    We have defined an  **odd number** of VMs to ensure high availability in a Ceph cluster (e.g., 3 or 5).
    The odd number is required due to a quorum-based election mechanism.
@@ -26,7 +27,7 @@ The first task is to set up a **Ceph**-based distributed storage system within V
 5. **Mount the File System**
    Mount the Ceph file system on all nodes (e.g., at `/orfeo/cephfs/scratch`).
 
-
+---
 
 All of these tasks have been automated through the **Ansible** playbooks. 
 After you have followed the first tutorial [setup](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/editing-rob/setup.md)), navigate to:
