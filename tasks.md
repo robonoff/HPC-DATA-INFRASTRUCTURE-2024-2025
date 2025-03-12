@@ -299,8 +299,8 @@ nano .env
 ```
 
 ```bash
-MINIO_ACCESS_KEY=fhcMdSrkR1OVWbP8MzaL
-MINIO_SECRET_KEY=7xEhk6FZBAcYbUmw30w2v2OU9eZ6D36rekzerX99
+minio_access_key=fhcMdSrkR1OVWbP8MzaL
+minio_secret_key=7xEhk6FZBAcYbUmw30w2v2OU9eZ6D36rekzerX99
 ```
 
 then add this line to to the `.bashrc` export them as variables in every new shell
@@ -314,7 +314,7 @@ then either log out and back in, close the terminal and open a new one or run `s
 Now you can actually create the alias to use for the *API* calls by running:
 
 ```bash
-mc alias set <alias> https://s3.k3s.virtualorfeo.it $MINIO_ACCESS_KEY  $MINIO_SECRET_KEY
+mc alias set <alias> https://s3.k3s.virtualorfeo.it $minio_access_key  $minio_secret_key
 ```
 
 if you see an output like
@@ -376,11 +376,15 @@ After you have registered through an e-mail and you are logged in, on the top ba
 
 
 Click on the date (put a date further ahead, as you are setting an expiry date to the token), and then click on the :clipboard: icon to copy the token. 
-From the vm terminal, open the `.env` where the `$MINIO_ACCESS_KEY` and the `$MINIO_SECRET_KEY` have been previously saved, and add:
+From the vm terminal, open the `.env` where the `$minio_access_key` and the `$minio_secret_key` have been previously saved, and add:
 
 
 ```
-NOMAD_TOKEN= <token>
+minio_access_key=<AccessKey>
+minio_secret_key=<SecretKey>
+nomad_token=<TOKEN>
+minio_url=https://s3.k3s.virtualorfeo.it
+
 
 ```
 
@@ -390,8 +394,28 @@ Close, save, and then run from the terminal:
 export $(cat .env | xargs)
 ```
 
-Now that we have saved our 
+Now that we have saved our environment variable, run this command from the terminal to get the authorization from nomad. 
 
 
-Ora aggiungi curl bearer authorization etc
-e runna script di sincronizzazione
+curl -X 'GET' "http://localhost/nomad-oasis/api/v1/uploads" -H 'Authorization: Bearer <TOKEN>'
+
+After this step, download the scripts, and move them into the <path-to-your-home>/units-infra-final/04_nomad, which is part of the one the repos cloned at the beginning. 
+
+```
+cd <path-to-your-home>/units-infra-final/04_nomad
+```
+
+```
+./sync_all.sh
+```
+
+
+To check if everything has worked fine, go to Minio and check the bucket, as we have seen previosly.
+As it regards Nomad, on the top bar go to `Publish` &rarr; `Uploads`.
+
+
+![APINOMAD](images/nomadupload.jpg)
+
+
+
+
