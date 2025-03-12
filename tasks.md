@@ -325,9 +325,13 @@ Added `<alias>` successfully.
 
 ### Create the *bucket*
 
+The command to create a bucket is the following:
+
 ```bash
 mc mb <alias>/bucket01
 ```
+
+In anycase, the python script does a check if there is an existing one or not. In case there is none, it will create one, so you might skip this step. 
 
 ### Using the *API* to make calls
 
