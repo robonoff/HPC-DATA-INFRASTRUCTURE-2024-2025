@@ -213,9 +213,16 @@ Please, follow this documentation. When using docker, note to use sudo.
 
 1. [Install Docker](https://docs.docker.com/engine/install/fedora/)
 
+2. After installing Docker, add the user to the group:
+
+```
+sudo usermod -aG docker $USER
+```
+
 2. [Install Nomad Oasis](https://github.com/FAIRmat-NFDI/nomad-distro-template?tab=readme-ov-file#deploying-the-distribution)
 
 
 Once you have the entire setup ready, it's time to extract a token from nomad. 
+
 
 
