@@ -57,7 +57,7 @@ After you have runned all of the playbooks, open this address on chromium (the b
 ![Ceph Dashboard](images/ceph-dashboard.jpg)
 
 On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to pools to check if they have been created.
-Same is for OSDs: navigate to `Cluster &rarr; OSDs` through the GUI.
+Same is for OSDs: navigate to `Cluster` &rarr; `OSDs` through the GUI.
 Also, check if the Cluster/Physical disks if everything has worked.
 
 
