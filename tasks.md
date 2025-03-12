@@ -1,7 +1,7 @@
 ## Tasks
 
 
-After referring to the [this quick-start guide](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/editing-rob/setup.md ) to deploy a working testing infrastructure as starting point, it's time to implement all the tasks described below.
+After referring to the [this quick-start guide](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/editing-rob/setup.md) to deploy a working testing infrastructure as starting point, it's time to implement all the tasks described below.
 
 ### HPC-infrastructure assignments
 
@@ -30,7 +30,7 @@ The first task is to set up a **Ceph**-based distributed storage system within V
 ---
 
 All of these tasks have been automated through the **Ansible** playbooks. 
-After you have followed the first tutorial [setup](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/editing-rob/setup.md)), navigate to:
+After you have followed the first tutorial [setup](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/editing-rob/setup.md), navigate to:
 
 ```
 cd units-infra-final/01_ceph/playbooks
@@ -44,7 +44,7 @@ ansible-playbook 00_all.yml
 ```
 
 With this `.yml`, you'll bring up three ceph nodes (`ceph01`, `ceph02` and `ceph03`). 
-After this it is necessary to connect our ceph nodes to the virtual environmente through:
+Now, it's necessary to connect our ceph nodes to the virtual environment through:
 
 ```
 ansible-playbook 05_mount.yml
@@ -64,16 +64,15 @@ Also, check if the `Cluster` &rarr; `Physical disks` if everything has worked.
 
 ![Ceph overview](images/ceph-overview.jpg)
 
-
+---
 
 #### 2. Enhance Slurm Configuration
 As the current Slurm configuration on our virtual machine is minimal and simply queues jobs in submission order,
 it's necessary to modify this configuration to resemble a production-like environment by introducing **Quality of Service (QOS)** rules. Specifically:
 
-- **Implement a Debug QOS**:
-  Create a high-priority QOS (for example, `orfeo_debug`) that allows short, resource-light jobs to run with high priority regardless of submission order.
+- **Implement a Debug QOS**: Create a high-priority QOS (for example, `zebra`) that allows short, resource-light jobs to run with high priority regardless of submission order.
 
-  For instance, if jobs `job1`, `job2`, `job3` were submitted, followed by a debug job `dbg1` (with `--qos=orfeo_debug`), the debug job should preempt or be scheduled before the other queued jobs, provided it meets the debug QOS criteria (e.g., minimal resources and short runtime).
+  For instance, if jobs `job1`, `job2`, `job3` were submitted, followed by a debug job `dbg1` (with `--qos=zebra`), the debug job should preempt or be scheduled before the other queued jobs, provided it meets the debug QOS criteria (e.g., minimal resources and short runtime).
 
 
 To implement to QoS, the documentations we took inspiration from are the following:
@@ -168,7 +167,7 @@ For setting a QoS:
 sacctmgr add qos zebra
 ```
 
-For setting the priority or other limits (check documentation):
+For setting the priority or other limits [check documentation](https://slurm.schedmd.com/qos.html):
 
 
 ```
@@ -205,6 +204,8 @@ nano test.sh
 sleep 60
 
 ```
+Close and save. We use nano, but any text editor is fine.
+
 
 ```bash
 chmod +x test.sh
