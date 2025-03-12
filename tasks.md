@@ -140,6 +140,7 @@ and again run this command to apply the change
 ```bash
 scontrol reconfigure
 ```
+-- 
 
 ### CREATE USERS AND QoS
 
@@ -174,7 +175,7 @@ For setting the priority or other limits [check documentation](https://slurm.sch
 sacctmgr modify qos zebra set MaxWall=00:01:00 priority=10000
 ```
 
-
+-- 
 ## To add QoS to a user
 
 ```
@@ -228,6 +229,8 @@ sbatch -p p1 --qos=debug --job_name=debug test.sh
 ```
 
 now run `squeue` to see the queue, what's in it and what's being run. Either you can cancel the running job with`scancel <job-id>`, then run `squeue` again and check if the `debug` job is being run ahead of `normal_1`, or you can just wait and run `watch squeue` and see what happens.  
+
+---
 
 ### Data-infrastructure tasks
 
