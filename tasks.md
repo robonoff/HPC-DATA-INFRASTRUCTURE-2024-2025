@@ -29,7 +29,7 @@ The first task is to set up a **Ceph**-based distributed storage system within V
 
 
 All of these tasks have been automated through the **Ansible** playbooks. 
-After you have followed the first tutorial (setup-inserisci link), navigate to:
+After you have followed the first tutorial [setup](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/editing-rob/setup.md)), navigate to:
 
 ```
 cd units-infra-final/01_ceph/playbooks
@@ -60,8 +60,8 @@ It should appear a dashboard like this:
 
 ![Ceph Dashboard](images/ceph-dashboard.jpg)
 
-On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to pool to check if they have been created.
-Same is for OSDs: navigate to Cluster/OSDs through the GUI.
+On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to pools to check if they have been created.
+Same is for OSDs: navigate to `Cluster &rarr OSDs` through the GUI.
 Also, check if the Cluster/Physical disks if everything has worked.
 
 
