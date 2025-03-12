@@ -602,7 +602,7 @@ if all looks good, let's proceed.
 
 Now we need to edit some configuration files to enforce the changes.  
 
-Edit the *sssd.conf* file by adding an ovveride command to the `[domain/default]` section:
+Edit the *sssd.conf* file by adding an override command to the `[domain/default]` section:
 
 ```bash
 override_homedir = /mnt/testfs/home/%u
@@ -660,11 +660,11 @@ pwd
 
 ## Configure *SLURM* Users
 
-We will now configure the *slurm* users and partitions to work properly and then set the *QoS* to differentiate usecases.  
+We will now configure the *slurm* users and partitions to work properly and then set the *QoS* to differentiate use cases.  
 
 ### Gather Info
 
-Now, your *slurm* install hsould not yet have any of the *FreeIPA* accounts added to any of the partitions.  
+Now, your *slurm* install should not yet have any of the *FreeIPA* accounts added to any of the partitions.  
 
 Login in `root` in the `login01` node:
 
@@ -998,3 +998,40 @@ sudo docker compose up -d
 ```
 
 It will take a while the first time.
+
+### Operate *NOMAD*
+
+Open the [web interface](http://localhost/nomad-oasis/) you can find at [`http://localhost/nomad-oasis/`](http://localhost/nomad-oasis/).  
+
+Now you need to create an account with `nomad-lab` by following the button present at the top right of the page. Note that this is an ACTUAL account, so you need to pick an actually secure password for it.  
+
+![NOMAD interface](images/nomad_interface.png)
+
+![NOMAD registration](images/nomad_register.png)
+
+From here, using the 
+
+Once you logged in, you can navigate using the `ANALYZE` &rarr; `APIs` to get to this page
+
+![NOMAD APIs page, get the token from the clipboard button](images/nomad_apis.png)
+
+and use the date menu to set the expiration date of the token; besides that, there's a *clipboard* button. When you click on it, the access token will be added to you clipboard. Now you can paste it wherever you want. Save it somewhere.  
+
+Now we will create a `.env` file in a dedicated directory:
+
+```bash
+mkdir -p nomad
+cd nomad
+nano .env
+```
+
+the format should be along the lines of this one:
+
+```bash
+nomad_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiZjQ4ODZjN2MtZjNkMC00ZTEyLTk5MjktM2NiY2YwOTE3Mjc0IiwiZXhwIjoxNzQyMzM4ODAwfQ.q9LdxR8vZwSatykIT7QP5jD-XPdYScE76tOKh2xo7hU
+minio_url=https://s3.k3s.virtualorfeo.it
+minio_access_key=58WnsTvOjRwIuh2Ffxbv
+minio_secret_key=CxyBzlIuNgn9jvl2HPXC03a1WzPl939mddrxv0Xd
+```
+
+Now, to upload a 
