@@ -165,8 +165,6 @@ It's possible to associate an user to multiple QoS:
 sacctmgr modify user user01 set qos+=alligator
 ```
 
-
-
 Now, create a bash script with slurm directives to launch a job. 
 
 
@@ -196,8 +194,7 @@ The testing process involves verifying that Authentik and MinIO work correctly, 
 
 #### 4. File Synchronization
 
-Nomad Oasis is a data management platform that allows users to store and share files.
-Since It has its own storage system, it is necessary to synchronize MinIO storage with the Nomad Oasis database.
+
 
 Deploy Nomad Oasis [following the instructions in the repository](https://github.com/FAIRmat-NFDI/nomad-distro-template?tab=readme-ov-file#deploying-the-distribution)
 
@@ -205,14 +202,20 @@ Design a synchronization procedure between files stored in MinIO and Nomad Oasis
 
 ---
 
-### Deliverables
 
-By the end of this assignment, you should have:
+## Install *NOMAD*
+Nomad Oasis is a data management platform that allows users to store and share files.
+Since It has its own storage system, it is necessary to synchronize MinIO storage with the Nomad Oasis database.
+Our main task here is to implement a synchronization procedure (through a script) that allows to download a file from MinIO and upload it to Nomad Oasis and vice versa.
 
-1. A **Ceph** cluster deployed within the Virtual Orfeo environment, with a replicated pool and file system mounted on all nodes.
-2. An updated **Slurm** configuration that supports a debug QOS, enabling high-priority scheduling of qualifying short jobs.
-3. A well-documented file where you show that you were able to login into MinIO through the Authentik service for an user that you have enrolled in FreeIPA. For what regard the API-based method, feel free to attach any script needed to achieve this result.
-4. A synchronization procedure (ideally a script) that allows to download a file from MinIO and upload it to Nomad Oasis and vice versa.
+The first thing to do is to install docker, and then Nomad. 
+Please, follow this documentation. When using docker, note to use sudo.
 
-### Computational resources
-Because the virtual environment requires significant RAM and CPU resources, a dedicated virtual machine will be provided for your assignments. If you have any questions, concerns, or difficulties, please feel free to reach out at any time.
+1. [Install Docker](https://docs.docker.com/engine/install/fedora/)
+
+2. [Install Nomad Oasis](https://github.com/FAIRmat-NFDI/nomad-distro-template?tab=readme-ov-file#deploying-the-distribution)
+
+
+Once you have the entire setup ready, it's time to extract a token from nomad. 
+
+
