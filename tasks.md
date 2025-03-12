@@ -56,8 +56,8 @@ After you have runned all of the playbooks, open this address on chromium (the b
 
 ![Ceph Dashboard](images/ceph-dashboard.jpg)
 
-On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to pools to check if they have been created.
-Same is for OSDs: navigate to `Cluster` &rarr; `OSDs` through the GUI.
+On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to *pools* to check if they have been created.
+Same is for *OSDs*: navigate to `Cluster` &rarr; `OSDs` through the GUI.
 Also, check if the `Cluster` &rarr; `Physical disks` if everything has worked.
 
 
@@ -115,11 +115,22 @@ priorityweightqos=10000
 ```
 
 After you have modified the slurm.conf, save and exit k9s.
-Login into `root@login01.virtualorfeo.it` through the terminal
+Note that the editor is vi. This is the way to modify: press `i` to enter *insertion* mode,  then press `Esc`, write `:wq` to write the file to save it and then quit the editor and then `Enter`.  
 
+Log out, now login as `root` in `login01`
+
+```bash
+ssh root@login01
 ```
-ssh root@login01.virtualorfeo.it
+
+and again run this command to apply the change
+
+```bash
+scontrol reconfigure
 ```
+
+### CREATE USERS AND QoS
+
 
 Create the account (it's basically the group the users are part of) with:
 
@@ -348,24 +359,24 @@ sudo usermod -aG docker $USER
 2. [Install Nomad Oasis](https://github.com/FAIRmat-NFDI/nomad-distro-template?tab=readme-ov-file#deploying-the-distribution)
 
 
-Once you have the entire setup ready, it's time to extract a token from nomad. Go on nomad through chromium or the preferred browser and type `http://192.168.132.1/nomad-oasis/gui/`. 
+Once you have the entire setup ready, it's time to extract a token from nomad. Go on nomad through chromium or the preferred browser and type `http://192.168.132.1/nomad-oasis/gui/` or `http://localhost/nomad-oasis/` (they are equivalent). 
 Something like this should show up:
 
 
 
-![NOMAD](images/nomad.jpg)
+![NOMAD](images/nomad.png)
 
 
 
-Register an account through the LOGIN/REGISTER findable on the top right of the page. 
-After you have registered through an e-mail and you are logged in, on the top bar click on `Analyze &rarr API's`
+Register an account through the **LOGIN/REGISTER** findable on the top right of the page. 
+After you have registered through an e-mail and you are logged in, on the top bar click on `Analyze` &rarr `API's`
 
 
 ![APINOMAD](images/apinomad.jpg)
 
 
-Click on the date (put a date further ahead, as you are setting an expiry date to the token), and then click on the :clipboard: image to copy the token. 
-From the vm terminal, open the .env where the $MINIO_ACCESS_KEY and the $MINIO_SECRET_KEY have been saved, and add:
+Click on the date (put a date further ahead, as you are setting an expiry date to the token), and then click on the :clipboard: icon to copy the token. 
+From the vm terminal, open the `.env` where the `$MINIO_ACCESS_KEY` and the `$MINIO_SECRET_KEY` have been previously saved, and add:
 
 
 ```
