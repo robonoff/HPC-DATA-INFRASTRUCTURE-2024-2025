@@ -400,8 +400,9 @@ export $(cat .env | xargs)
 
 Now that we have saved our environment variable, run this command from the terminal to get the authorization from nomad. 
 
-
+```
 curl -X 'GET' "http://localhost/nomad-oasis/api/v1/uploads" -H 'Authorization: Bearer <TOKEN>'
+```
 
 After this step, download the scripts, and move them into the <path-to-your-home>/units-infra-final/04_nomad, which is part of the one the repos cloned at the beginning. 
 
