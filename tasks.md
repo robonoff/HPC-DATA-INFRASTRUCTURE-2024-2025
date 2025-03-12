@@ -163,8 +163,6 @@ It's possible to associate an user to multiple QoS:
 sacctmgr modify user user01 set qos+=alligator
 ```
 
-Now, create a bash script with slurm directives to launch a job. 
-
 
 To implement to QoS, the documentations we took inspiration from are the following:
 
@@ -177,10 +175,45 @@ To implement to QoS, the documentations we took inspiration from are the followi
 
 
 
+Now to test whether it worked or not, we need to run 3 jobs using any of the configured normal users. To do so, we need a `job` file to `sbatch` with different options in such a way to create a queue, and check whether the job with the higher priority gets started before the one with the lower priority.  
 
+Here's the most basic file to do so, a `job` that just waits for 60 seconds.
 
+```bash
+nano test.sh
+```
 
+```bash
+#!/bin/bash
 
+#SBATCH --account=default
+#SBATCH --error=error_%j.log
+
+sleep 60
+
+```
+
+```bash
+chmod +x test.sh
+```
+
+now let's sbatch it twice specifying the normal *QoS*:
+
+```bash
+sbatch -p p1 --qos=normal --job_name=normal_0 test.sh
+```
+
+```bash
+sbatch -p p1 --qos=normal --job_name=normal_1 test.sh
+```
+
+and then sbatch it with the higher priority *QoS*
+
+```bash
+sbatch -p p1 --qos=debug --job_name=debug test.sh
+```
+
+now run `squeue` to see the queue, what's in it and what's being run. Either you can cancel the running job with`scancel <job-id>`, then run `squeue` again and check if the `debug` job is being run ahead of `normal_1`, or you can just wait and run `watch squeue` and see what happens.  
 
 ### Data-infrastructure tasks
 
@@ -190,19 +223,111 @@ In this section, we continue the deployment, and we test the OFED virtual enviro
 The testing process involves verifying that Authentik and MinIO work correctly, with **both*** a **graphical** login and **API-based access**, utilizing credentials managed by Authentik.
 
 
+## Running *MinIO* with the *API* client `mc`
 
+It is possible to run *MinIO* from command line or using a script, for example a *Python* one, using the appropriate *API*. To do so, one needs to install the proper packages, libraries and follow the right set up steps.  
+
+### Get the secret key
+
+First of all, let's generate the `access key`. To do so, navigate to [https://minio.k3s.virtualorfeo.it/](https://minio.k3s.virtualorfeo.it/), login using the admin credentials for *Authentik* and go to the `Access Keys` section.
+
+![Homepage of the MinIO web interface](images/minio_home.png)
+
+Then click on `Create access key` button
+
+![Inteface for the access key management](images/minio_acces_key_button.png)
+
+click on the `Create` button
+
+![Access key reation interface](images/minio_access_key_create_button.png)
+
+which will open an interface with the key and a button to download the *json* containing the keys. Do so, as this will be the last time they will be shown and using the file is more useful than having them written somewhere.  
+
+![Accesss key json format download button](images/minio_access_key_json_download.png)
+
+Now if you are using a remote machine/VM via proxy, you should note that the file should have been saved on your local machine. Upload the file using `scp` to the remote machine (assuming you downloaded in `Downloads/`)
+
+```bash
+scp $HOME/Download/credentials.json <shortcut-to-your-remote>:<path-to-your-project-directory>
+```
+
+### Install the `mc` client
+
+Now, we need to install the packages required to run the *API* calls for *MinIO* from the CLI. You can find the complete documentation [here](https://min.io/docs/minio/linux/reference/minio-mc.html).  
+
+Install it by downloading the binaries then moving them to the appropriate location:
+
+```bash
+curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+  --create-dirs \
+  -o $HOME/minio-binaries/mc \
+cd $HOME/minio-binaries \
+chmod +x mc
+```
+
+```bash
+sudo cp mc /usr/bin
+```
+
+Test it by running
+
+```bash
+mc --version
+```
+
+If everything is fine, proceed.
+
+> NOTE: the system might offer to install the package for you. DO NOT ACCEPT. That is a different command also called `mc` which has nothing to do with this.
+
+### Create the *alias*
+
+Get the access and secret keys from the `credentials.json` and paste them in a `.env` file like so:
+
+```bash
+nano .env
+```
+
+```bash
+MINIO_ACCESS_KEY=fhcMdSrkR1OVWbP8MzaL
+MINIO_SECRET_KEY=7xEhk6FZBAcYbUmw30w2v2OU9eZ6D36rekzerX99
+```
+
+then add this line to to the `.bashrc` export them as variables in every new shell
+
+```bash
+export $(cat /path/to/your/.env | xargs)
+```
+
+then either log out and back in, close the terminal and open a new one or run `source .bashrc`.  
+
+Now you can actually create the alias to use for the *API* calls by running:
+
+```bash
+mc alias set <alias> https://s3.k3s.virtualorfeo.it $MINIO_ACCESS_KEY  $MINIO_SECRET_KEY
+```
+
+if you see an output like
+
+```bash
+Added `minio` successfully.
+```
+
+### Create the *bucket*
+
+```bash
+mc mb <alias>/bucket01
+```
+
+### Using the *API* to make calls
+
+The documentation provided explains from this point onwards how to make calls to create buckets (basically the equivalent of directories), upload, edit, list or download files, etc.  
+
+For testing purposes, you can also use them via a *Python* script - one example is provided in the [*scripts*](scripts/) directory of this repo.
 
 
 #### 4. File Synchronization
 
-
-
-Deploy Nomad Oasis [following the instructions in the repository](https://github.com/FAIRmat-NFDI/nomad-distro-template?tab=readme-ov-file#deploying-the-distribution)
-
-Design a synchronization procedure between files stored in MinIO and Nomad Oasis, leveraging the APIs provided by both services. The goal is to create an automated mechanism for updating and sharing files.
-
----
-
+### Deploy Nomad Oasis 
 
 ## Install *NOMAD*
 Nomad Oasis is a data management platform that allows users to store and share files.
