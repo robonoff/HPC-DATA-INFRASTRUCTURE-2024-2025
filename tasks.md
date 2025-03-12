@@ -75,13 +75,7 @@ it's necessary to modify this configuration to resemble a production-like enviro
   For instance, if jobs `job1`, `job2`, `job3` were submitted, followed by a debug job `dbg1` (with `--qos=zebra`), the debug job should preempt or be scheduled before the other queued jobs, provided it meets the debug QOS criteria (e.g., minimal resources and short runtime).
 
 
-To implement to QoS, the documentations we took inspiration from are the following:
-
-[Slurm Quality of Service](https://slurm.schedmd.com/qos.html)
-
-[sacctmgr from Slurm](https://slurm.schedmd.com/sacctmgr.html)
-
-[sacctmgr tips JHPCE](https://jhpce.jhu.edu/slurm/tips-sacctmgr/)
+To implement to QoS, the documentations we took inspiration from are the following: [Slurm Quality of Service](https://slurm.schedmd.com/qos.html), [sacctmgr from Slurm](https://slurm.schedmd.com/sacctmgr.html), [sacctmgr tips JHPCE](https://jhpce.jhu.edu/slurm/tips-sacctmgr/).
 
 
 
@@ -102,8 +96,7 @@ after that, a GUI will open. This is what you will see
 ![k9s GUI](images/k9sGUI.jpg)
 
 On the top of the GUI, you can find lots of ways you can interact with pods through k9s.
-Through the &uarr; &darr; of your keyboard, it's possible to select the pod you wanna interact with. In our case, at this step, we want to interact with **slurmctld**, 
-which is the pod for scheduling the various jobs.
+Through the &uarr; &darr; of your keyboard, it's possible to select the pod you wanna interact with. In our case, at this step, we want to interact with **slurmctld**, which is the pod for scheduling the various jobs.
 
 
 ![k9s GUI options](images/GUImenu.jpg)
@@ -140,7 +133,7 @@ and again run this command to apply the change
 ```bash
 scontrol reconfigure
 ```
--- 
+---
 
 ### CREATE USERS AND QoS
 
@@ -156,6 +149,7 @@ To create the users:
 ```
 sacctmgr add user user01 cluster=orfeo Partition=p1,p2,debug Account=<randomname>
 ```
+
 To check if the user01 is associatied with the right account and the desired partition
 
 ```
@@ -175,7 +169,7 @@ For setting the priority or other limits [check documentation](https://slurm.sch
 sacctmgr modify qos zebra set MaxWall=00:01:00 priority=10000
 ```
 
--- 
+--- 
 ## To add QoS to a user
 
 ```
@@ -397,3 +391,7 @@ export $(cat .env | xargs)
 ```
 
 Now that we have saved our 
+
+
+Ora aggiungi curl bearer authorization etc
+e runna script di sincronizzazione
