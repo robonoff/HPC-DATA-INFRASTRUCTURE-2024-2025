@@ -58,7 +58,7 @@ After you have runned all of the playbooks, open this address on chromium (the b
 
 On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to pools to check if they have been created.
 Same is for OSDs: navigate to `Cluster` &rarr; `OSDs` through the GUI.
-Also, check if the Cluster/Physical disks if everything has worked.
+Also, check if the `Cluster` &rarr; `Physical disks` if everything has worked.
 
 
 ![Ceph overview](images/ceph-overview.jpg)
@@ -90,12 +90,14 @@ after that, a GUI will open. This is what you will see
 
 ![k9s GUI](images/k9sGUI.jpg)
 
-On the top of the GUI, you can find lots of ways you can interact with k9s.
+On the top of the GUI, you can find lots of ways you can interact with pods through k9s.
 Through the &uarr; &darr; of your keyboard, it's possible to select the pod you wanna interact with. In our case, at this step, we want to interact with **slurmctld**, 
 which is the pod for scheduling the various jobs.
 
 
 ![k9s GUI options](images/GUImenu.jpg)
+
+
 
 After selecting the desired pod, for example you can click on <d> on the keyboard and an entire description of the pod features will appear. 
 In our specific case, right now, what it's required to do is to open the shell. To do so, click the *s* letter on the keyboard.
