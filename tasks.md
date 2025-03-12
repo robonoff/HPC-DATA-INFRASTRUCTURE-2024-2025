@@ -222,7 +222,34 @@ sudo usermod -aG docker $USER
 2. [Install Nomad Oasis](https://github.com/FAIRmat-NFDI/nomad-distro-template?tab=readme-ov-file#deploying-the-distribution)
 
 
-Once you have the entire setup ready, it's time to extract a token from nomad. 
+Once you have the entire setup ready, it's time to extract a token from nomad. Go on nomad through chromium or the preferred browser and type `http://192.168.132.1/nomad-oasis/gui/`. 
+Something like this should show up:
 
 
+
+![NOMAD](images/nomad.jpg)
+
+
+
+Register an account through the LOGIN/REGISTER findable on the top right of the page. 
+After you have registered through an e-mail and you are logged in, on the top bar click on `Analyze &rarr API's`
+
+
+![APINOMAD](images/apinomad.jpg)
+
+
+Click on the date (put a date further ahead, as you are setting an expiry date to the token), and then click on the :clipboard: image to copy the token. 
+From the vm terminal, open the .env where the $MINIO_ACCESS_KEY and the $MINIO_SECRET_KEY have been saved, and add:
+
+
+```
+NOMAD_TOKEN= <token>
+
+```
+
+Close, save, and then run from the terminal:
+
+```
+export $(cat .env | xargs)
+```
 
