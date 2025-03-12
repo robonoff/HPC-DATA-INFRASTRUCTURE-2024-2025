@@ -1,7 +1,7 @@
 ## Tasks
 
 
-After referring to the [this quick-start guide](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/editing-rob/setup.md) to deploy a working testing infrastructure as starting point, it's time to implement all the tasks described below.
+After referring to the [this quick-start guide](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/editing-rob/setup.md ) to deploy a working testing infrastructure as starting point, it's time to implement all the tasks described below.
 
 ### HPC-infrastructure assignments
 
