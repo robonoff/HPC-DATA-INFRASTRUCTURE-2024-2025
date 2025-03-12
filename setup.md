@@ -37,7 +37,7 @@ we will need a specific branch for `orfeokuboverlay`, so run:
  git checkout hotfixes/authentik
  ```
 
-## INTIAL SETUP
+## INITIAL SETUP
 
 ### Install the Requirements
 
