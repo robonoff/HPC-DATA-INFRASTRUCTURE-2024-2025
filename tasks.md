@@ -326,7 +326,7 @@ mc alias set <alias> https://s3.k3s.virtualorfeo.it $MINIO_ACCESS_KEY  $MINIO_SE
 if you see an output like
 
 ```bash
-Added `minio` successfully.
+Added `<alias>` successfully.
 ```
 
 ### Create the *bucket*
@@ -342,11 +342,11 @@ The documentation provided explains from this point onwards how to make calls to
 For testing purposes, you can also use them via a *Python* script - one example is provided in the [*scripts*](scripts/) directory of this repo.
 
 
-#### 4. File Synchronization
 
-### Deploy Nomad Oasis 
+# Deploy Nomad Oasis 
 
-## Install *NOMAD*
+## 4. File Syncronization
+### Install *NOMAD*
 Nomad Oasis is a data management platform that allows users to store and share files.
 Since It has its own storage system, it is necessary to synchronize MinIO storage with the Nomad Oasis database.
 Our main task here is to implement a synchronization procedure (through a script) that allows to download a file from MinIO and upload it to Nomad Oasis and vice versa.
@@ -396,3 +396,4 @@ Close, save, and then run from the terminal:
 export $(cat .env | xargs)
 ```
 
+Now that we have saved our 
