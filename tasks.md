@@ -186,11 +186,14 @@ To implement to QoS, the documentations we took inspiration from are the followi
 
 ### Data-infrastructure tasks
 
+#### 3. Deploying MINIO and testing the OFED Environment
 
-#### 3. Deploy and Test the OFED Environment
-
-Complete the deployment and testing of the OFED virtual environment, which includes MinIO and Authentik.
+In this section, we continue the deployment, and we test the OFED virtual environment, which includes MinIO and Authentik.
 The testing process involves verifying that Authentik and MinIO work correctly, with **both*** a **graphical** login and **API-based access**, utilizing credentials managed by Authentik.
+
+
+
+
 
 #### 4. File Synchronization
 
