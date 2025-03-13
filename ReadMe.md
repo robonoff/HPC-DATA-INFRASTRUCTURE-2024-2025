@@ -606,6 +606,9 @@ Edit the *sssd.conf* file by adding an override command to the `[domain/default]
 
 ```bash
 sudo nano /etc/sssd/sssd.conf
+```
+
+```bash
 override_homedir = /mnt/testfs/home/%u
 ```
 
