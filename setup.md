@@ -250,6 +250,13 @@ Edit the *hosts* file to add host names:
 echo "192.168.132.70 ipa01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.100 auth.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.132.100 minio.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.100 s3.k3s.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.50 login01 login01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.51 node01 node01.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.52 node02 node02.virtualorfeo.it" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.81 ceph01" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.82 ceph02" | sudo tee -a /etc/hosts > /dev/null
+echo "192.168.132.83 ceph03" | sudo tee -a /etc/hosts > /dev/null
 ```
 
 ### Export the Certificates from IPA
