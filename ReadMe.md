@@ -835,17 +835,17 @@ chmod +x test.sh
 now let's sbatch it twice specifying the normal *QoS*:
 
 ```bash
-sbatch -p p1 --qos=normal --job_name=normal_0 test.sh
+sbatch -p p1 --qos=normal --job-name=normal_0 test.sh
 ```
 
 ```bash
-sbatch -p p1 --qos=normal --job_name=normal_1 test.sh
+sbatch -p p1 --qos=normal --job-name=normal_1 test.sh
 ```
 
 and then sbatch it with the higher priority *QoS*
 
 ```bash
-sbatch -p p1 --qos=debug --job_name=debug test.sh
+sbatch -p p1 --qos=debug --job-name=debug test.sh
 ```
 
 now run `squeue` to see the queue, what's in it and what's being run. Either you can cancel the running job with`scancel <job-id>`, then run `squeue` again and check if the `debug` job is being run ahead of `normal_1`, or you can just wait and run `watch squeue` and see what happens.  
