@@ -731,7 +731,7 @@ sacctmgr modify qos normal set MaxWall=01:00:00
 Let's create a new `debug` *QoS*, with limited resources (shorter max wall time) but higher priority:
 
 ```bash
-acctmgr add qos debug set MaxWall=00:01:00 Priority=10000
+sacctmgr add qos debug set MaxWall=00:01:00 Priority=10000
 ```
 
 write `y` to confirm.  
