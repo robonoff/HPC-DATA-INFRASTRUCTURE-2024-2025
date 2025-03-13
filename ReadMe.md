@@ -883,8 +883,8 @@ Install it by downloading the binaries then moving them to the appropriate locat
 ```bash
 curl https://dl.min.io/client/mc/release/linux-amd64/mc \
   --create-dirs \
-  -o $HOME/minio-binaries/mc \
-cd $HOME/minio-binaries \
+  -o $HOME/minio-binaries/mc
+cd $HOME/minio-binaries
 chmod +x mc
 ```
 
