@@ -736,10 +736,6 @@ sacctmgr add qos debug set MaxWall=00:01:00 Priority=10000
 
 write `y` to confirm.  
 
-Now, all of this will be completely useless if we don't edit the configuration file to take into account the priority values set by the *QoS*. Let's do that by editing a configuration file found in the *slurm* controller. This is not persistent between destructions of the *kubernetes* VM, for that yoy would need to edit the configuration files used by the playbooks.  
-
-**SEE ROBERTA'S PART**
-
 ### Create an Account, Add the Users, Associate the QoS
 
 Now let's create an `account` to associate with the future users:
@@ -778,7 +774,11 @@ Now apply the changes with
 scontrol reconfigure
 ```
 
-It should now work. You can logout from `root` and login using any of the users you added and trying something like
+Now open `k9s`, use the &uarr; and &darr; to navigate to the `slurmctld-p-0 ` pod and use `ctrl+k` to kill it and restart it.  
+
+![Pod to kill](images/slurm_pod_to_kill.png)
+
+Wait for it to come up again and log in with any user that is not `root` and try something like:
 
 ```bash
 srun -p p1 --pty bash
