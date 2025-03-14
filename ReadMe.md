@@ -1038,4 +1038,4 @@ minio_access_key=58WnsTvOjRwIuh2Ffxbv
 minio_secret_key=CxyBzlIuNgn9jvl2HPXC03a1WzPl939mddrxv0Xd
 ```
 
-Now, to upload a 
+Now, to upload a file you can **CHECKOUT ROBERTA'S PART**
