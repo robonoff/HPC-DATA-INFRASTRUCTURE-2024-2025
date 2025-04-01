@@ -23,6 +23,16 @@ ssh-keygen -t rsa
 
 Press enter to avoid editing the name of the key, if you don't want to require a password each time enter again. Add it to `GitLab` using [this tutorial](https://docs.gitlab.com/user/ssh/).
 
+## INSTALL REALLY BASIC REQUIREMENTS
+
+`git` could be not installed. Let's install it.  
+
+```bash
+sudo dnf -y install git
+```
+
+Let's proceed.
+
 ## CLONE THE REQUIRED REPOS
 
 For this to work, we will need the repos for [Virtual ORFEO](https://gitlab.com/area7/datacenter/codes/virtualorfeo), [the one specific for the kubernetes overlay](https://gitlab.com/area7/datacenter/codes/orfeokuboverlay) and [the one we made for Ceph](https://gitlab.com/dododevs/units-infra-final).  
