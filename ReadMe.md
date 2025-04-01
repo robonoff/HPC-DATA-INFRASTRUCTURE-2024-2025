@@ -13,6 +13,16 @@ Experimentally, we have determined that the minimum hardware required to follow 
 
 This tutorial is an expanded version of [Isac Pasianotto's tutorial](https://gitlab.com/IsacPasianotto/testing-env-doc).
 
+## GENERATE AN *SSH* *rsa* KEY
+
+Downloading from *GitHub* and *GitLab* using *SSH* and some of these scripts require you to have an *SSH* key; the scripts require it to be called `id_rsa`. So, let's make one, then let's add it to your `GitLab` account.  
+
+```bash
+ssh-keygen -t rsa
+```
+
+Press enter to avoid editing the name of the key, if you don't want to require a password each time enter again.
+
 ## CLONE THE REQUIRED REPOS
 
 For this to work, we will need the repos for [Virtual ORFEO](https://gitlab.com/area7/datacenter/codes/virtualorfeo), [the one specific for the kubernetes overlay](https://gitlab.com/area7/datacenter/codes/orfeokuboverlay) and [the one we made for Ceph](https://gitlab.com/dododevs/units-infra-final).  
