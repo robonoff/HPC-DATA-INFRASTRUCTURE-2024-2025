@@ -21,7 +21,7 @@ Downloading from *GitHub* and *GitLab* using *SSH* and some of these scripts req
 ssh-keygen -t rsa
 ```
 
-Press enter to avoid editing the name of the key, if you don't want to require a password each time enter again.
+Press enter to avoid editing the name of the key, if you don't want to require a password each time enter again. Add it to `GitLab` using [this tutorial](https://docs.gitlab.com/user/ssh/).
 
 ## CLONE THE REQUIRED REPOS
 
