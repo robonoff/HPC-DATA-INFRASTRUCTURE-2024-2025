@@ -167,7 +167,7 @@ Please, keep this terminal window open, as it needs to communicate the service r
 This command has been run from our virtual machine. 
 Now open another terminal from our personal machine, we have then runned:
 ```
-ssh -L 8888:localhost:8888 vm2
+ssh -L 8888:localhost:8888 -N vm2
 ```
 
 Where vm2 is just the name i've given to the host in the .ssh/config in my personal laptop. 
