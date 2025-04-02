@@ -554,10 +554,16 @@ cd <path-to-your-project-directory>/units-infra-final/01_ceph/playbooks
 This will take a while, so it will probably fail due to time limits being exceeded. If that's the case, just run the mount playbook alone:
 
 ```bash
+ansible-playbook 00_all.yml
+```
+
+With this `.yml`, you'll bring up three ceph nodes (ceph01, ceph02 and ceph03). Now, it's necessary to connect our ceph nodes to the virtual environment through:
+
+```bash
 ansible-playbook 05_mount.yml
 ```
 
-If everything work, you're done! Let's check it on the login node. Run:
+If everything work, you're done! Let's check it on the login node. To  Run:
 
 ```bash
 ssh root@login01
@@ -570,7 +576,23 @@ cd /mnt/testfs/
 touch test_file
 ```
 
-if this works, it's a good indicator we are good to go. To really make sure, let's log in into one of the compute nodes. Log out of `login01` and then:
+if this works, it's a good indicator we are good to go.
+This is done to automate all the steps available at this [tutorial](https://github.com/Foundations-of-HPC/HPC-and-DATA-Infrastructure-2024/blob/main/tutorials/ceph/ceph-deploy.md).
+
+After you have runned all of the playbooks, open this address on chromium (the browser previously used during the setup): `https://192.168.132.81:8443/`. It should appear a dashboard like this:
+
+
+![Ceph Dashboard](images/ceph-dashboard.jpg)
+
+On the ceph dashboard, it's possible to inspect all the details implemented through the ansible playbooks. Navigate to *pools* to check if they have been created.
+Same is for *OSDs*: navigate to `Cluster` &rarr; `OSDs` through the GUI.
+Also, check if the `Cluster` &rarr; `Physical disks` if everything has worked.
+
+
+![Ceph overview](images/ceph-overview.jpg)
+
+
+To really make sure, let's log in into one of the compute nodes to test it. Log out of `login01` and then:
 
 ```bash
 ssh root@node01
@@ -1041,15 +1063,8 @@ Once you logged in, you can navigate using the `ANALYZE` &rarr; `APIs` to get to
 
 and use the date menu to set the expiration date of the token; besides that, there's a *clipboard* button. When you click on it, the access token will be added to you clipboard. Now you can paste it wherever you want. Save it somewhere.  
 
-Now we will create a `.env` file in a dedicated directory:
-
-```bash
-mkdir -p nomad
-cd nomad
-nano .env
-```
-
-the format should be along the lines of this one:
+Click on the date (put a date further ahead, as you are setting an expiry date to the token), and then click on the :clipboard: icon to copy the token. 
+From the vm terminal, open the `.env` where the `$minio_access_key` and the `$minio_secret_key` have been previously saved, and add the nomad token and the minio_url. The format should be along the lines of this one:
 
 ```bash
 nomad_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiZjQ4ODZjN2MtZjNkMC00ZTEyLTk5MjktM2NiY2YwOTE3Mjc0IiwiZXhwIjoxNzQyMzM4ODAwfQ.q9LdxR8vZwSatykIT7QP5jD-XPdYScE76tOKh2xo7hU
@@ -1058,4 +1073,29 @@ minio_access_key=58WnsTvOjRwIuh2Ffxbv
 minio_secret_key=CxyBzlIuNgn9jvl2HPXC03a1WzPl939mddrxv0Xd
 ```
 
-Now, to upload a file you can **CHECKOUT ROBERTA'S PART**
+Close, save, and then run from the terminal:
+
+```
+export $(cat .env | xargs)
+```
+
+Now that we have saved our environment variable, run this command from the terminal to get the authorization from nomad. 
+
+```
+curl -X 'GET' "http://localhost/nomad-oasis/api/v1/uploads" -H 'Authorization: Bearer <TOKEN>'
+```
+
+After this step, download the scripts, and move them into the <path-to-your-home>/units-infra-final/04_nomad, which is part of the one the repos cloned at the beginning. 
+
+```
+cd <path-to-your-home>/units-infra-final/04_nomad
+```
+
+```
+./sync_all.sh
+```
+
+
+To check if everything has worked fine, go to Minio and check the bucket, as we have seen previosly.
+As it regards Nomad, on the top bar go to `Publish` &rarr; `Uploads`.
+
