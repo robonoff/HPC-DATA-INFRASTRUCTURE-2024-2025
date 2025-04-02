@@ -17,7 +17,7 @@ This tutorial is an expanded version of [Isac Pasianotto's tutorial](https://git
 
 For this to work, we will need the repos for [Virtual ORFEO](https://gitlab.com/area7/datacenter/codes/virtualorfeo), [the one specific for the kubernetes overlay](https://gitlab.com/area7/datacenter/codes/orfeokuboverlay) and [the one we made for Ceph](https://gitlab.com/dododevs/units-infra-final).  
 
-Download them using `SSH` (please note, in order to do that, you need to add a ssh key to a gitlab account):  
+Download them using `SSH` (please note, in order to do that, you need to add a ssh key to a gitlab account; in case you have no clue how to do that, please, follow the section [generate an SSH rsa KEY](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/tree/Editing) described in the Editing branch):  
 ```
 git clone git@gitlab.com:area7/datacenter/codes/virtualorfeo.git
 ```
