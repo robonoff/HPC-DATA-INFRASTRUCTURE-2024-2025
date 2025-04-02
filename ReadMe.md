@@ -12,6 +12,7 @@ Virtual Orfeo offers:
 ## Table of Contents
 
 - [Initial requirements](#Initial-requirements)
+- [NOMAD Oasis](#NOMAD-Oasis)
 
 ## STEP 0: Initial requirements
 
@@ -862,7 +863,7 @@ and again run this command to apply the change
 scontrol reconfigure
 ```
 
-**images in Roberta's part**
+
 
 Now to test whether it worked or not, we need to run 3 jobs using any of the configured normal users. To do so, we need a `job` file to `sbatch` with different options in such a way to create a queue, and check whether the job with the higher priority gets started before the one with the lower priority.  
 
