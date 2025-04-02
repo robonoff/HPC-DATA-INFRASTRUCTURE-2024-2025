@@ -12,6 +12,12 @@ Virtual Orfeo offers:
 ## Table of Contents
 
 - [Initial requirements](#Initial-requirements)
+- [GENERATE AN SSH rsa KEY](#GENERATE-AN-SSH-rsa-KEY)
+- [CLONE THE REQUIRED REPOS](CLONE-THE-REQUIRED-REPOS)
+- [INITIAL SETUP](INITIAL-SETUP)
+- [DEPLOY-CEPH](DEPLOY-CEPH)
+- [Configure SLURM Users](Configure-SLURM-Users)
+- [Running MinIO with the API client mc](Running-MinIO-with-the-API-client-mc)
 - [NOMAD Oasis](#NOMAD-Oasis)
 
 ## STEP 0: Initial requirements
@@ -71,7 +77,7 @@ we will need a specific branch for `orfeokuboverlay`, so run:
  git checkout hotfixes/authentik
  ```
 
-## INTIAL SETUP
+## INITIAL SETUP
 
 ### Install the Requirements
 
