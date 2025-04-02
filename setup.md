@@ -86,7 +86,7 @@ sudo systemctl enable --now libvirtd
 sudo usermod -aG libvirt $(whoami)
 ```
 
-Now, to apply the command *usermod* you need to log out and back in again. If you're running locally, you can reboot the system to make sure; otherwise, you can just use `su - $(whoami)` to login again in the current *bash*.  
+Now, to apply the command *usermod* you need to log out and back in again. If you're running locally, you can reboot the system to make sure; otherwise, you can just use `su - $(whoami)` to login again in the current *bash*. In case you have a different configuration (e.g. sudo doesn't require a password) exit and enter again into the vm.
 
 To check if the settings applied correctly, run `groups`. If you see *libvirt* listed, you're good to go.
 
@@ -140,7 +140,7 @@ This is to ensure only the strictly necessary commands are run, so that we can f
 
 Placeholder for the *simple proxy* part. Required if running remotely via `SSH`.
 
-The one we have used is (this one)[https://github.com/jthomperoo/simple-proxy]. From your machine (reminder: we used virtual machines with Fedora40), install the bin version you need based on your machine distribution. In order to do that, choose from this (page)[https://github.com/jthomperoo/simple-proxy/releases] the version you need, by simply copying the link adress. 
+The one we have used is [this one](https://github.com/jthomperoo/simple-proxy). From your machine (reminder: we used virtual machines with Fedora40), install the bin version you need based on your machine distribution. In order to do that, choose from this [page](https://github.com/jthomperoo/simple-proxy/releases) the version you need, by simply copying the link adress. 
 Go to the terminal and run:
 
 ```
