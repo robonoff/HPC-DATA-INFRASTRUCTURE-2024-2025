@@ -63,4 +63,4 @@ The monitoring aspect is out of the scope of this exam, while all the other serv
 
 After this brief overview, we are glad to conduct you through the entire tutorial. It's divided into two distinguished sections, for the sake of *human* mental health. 
 
-The tutorial to start from is the [setup](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/main/setup.md). After deployed the entire infrastructure, please, follow the [tasks tutorial]([https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/editing-rob/tasks.md](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/main/tasks.md).
+The tutorial to start from is the [setup](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/main/setup.md). After deployed the entire infrastructure, please, follow the [tasks tutorial](https://github.com/robonoff/HPC-DATA-INFRASTRUCTURE-2024-2025/blob/main/tasks.md).
