@@ -9,7 +9,9 @@ Virtual Orfeo offers:
 - A Slurm controller deployed through k3s (a lightweight Kubernetes distribution).
 - A login node and compute nodes resembling those in the production environment.
 
-#Table of Contents
+## Table of Contents
+
+- [Initial requirements](#Initial-requirements)
 
 ## STEP 0: Initial requirements
 
