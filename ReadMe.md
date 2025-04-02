@@ -1,6 +1,16 @@
 # Virtual ORFEO with OFED and Ceph
 > *Everybody has a testing environment. Some people are lucky enough to have a totally separate environment to run production in.*
 
+In many environments, having a dedicated testing setup (separate from production) is essential for developing and experimenting with new ideas—without disrupting live systems. To facilitate this, we have created Virtual Orfeo, a testing environment designed to closely replicate the core features of our production HPC cluster.
+
+Virtual Orfeo offers:
+
+- The same authentication and identity management via FreeIPA, which integrates the login across all nodes and services.
+- A Slurm controller deployed through k3s (a lightweight Kubernetes distribution).
+- A login node and compute nodes resembling those in the production environment.
+
+#Table of Contents
+
 ## STEP 0: Initial requirements
 
 Use a **Fedora 40** system, as later versions require additional steps and different distros require different package names and/or additional steps. You can try and adapt the steps to other systems, but it will require some extra work.    
