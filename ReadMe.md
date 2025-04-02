@@ -1080,8 +1080,6 @@ Once you logged in, you can navigate using the `ANALYZE` &rarr; `APIs` to get to
 
 ![NOMAD APIs page, get the token from the clipboard button](images/nomad_apis.png)
 
-and use the date menu to set the expiration date of the token; besides that, there's a *clipboard* button. When you click on it, the access token will be added to you clipboard. Now you can paste it wherever you want. Save it somewhere.  
-
 Click on the date (put a date further ahead, as you are setting an expiry date to the token), and then click on the :clipboard: icon to copy the token. 
 From the vm terminal, open the `.env` where the `$minio_access_key` and the `$minio_secret_key` have been previously saved, and add the nomad token and the minio_url. The format should be along the lines of this one:
 
